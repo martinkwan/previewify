@@ -26,6 +26,7 @@ $('.search-form').submit((event) => {
     populateTemplate(artistObj);
     $.get('/tracks', { artistId: artistObj.id }, (trackResults) => {
       const trackList = JSON.parse(trackResults).tracks.map(track => track.name);
+      populateTrackList(trackList);
       console.log(trackList);
       $.get('/albums', { artistId: artistObj.id }, (albumResults) => {
         const albumList = JSON.parse(albumResults).items.map(album => album.name);
@@ -54,4 +55,23 @@ function populateTemplate(artistObj) {
 
   // Add compiled html to the page
   $('.content-placeholder').html(theCompiledHtml);
+}
+
+function populateTrackList(trackList) {
+  // Grab the template script
+  const theTemplateScript = $('#track-list-template').html();
+
+  // Compile the template
+  const theTemplate = Handlebars.compile(theTemplateScript);
+
+  // Define Data
+  let context = {
+    tracks: trackList,
+  };
+
+  // Pass data to template
+  let theCompiledHtml = theTemplate(context);
+
+  // Add compiled html to the page
+  $('.track-list-placeholder').html(theCompiledHtml);
 }
