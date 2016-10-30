@@ -21,10 +21,17 @@ $(function(){
 $('.search-form').submit((event) => {
   event.preventDefault();
   const artist = $('.search-form>input').val();
-  $.get('/artist', { artist }, (results) => {
-    let artistObj = JSON.parse(results).artists.items[0];
-    console.log(artistObj);
+  $.get('/artist', { artist }, (artistResults) => {
+    let artistObj = JSON.parse(artistResults).artists.items[0];
     populateTemplate(artistObj);
+    $.get('/tracks', { artistId: artistObj.id }, (trackResults) => {
+      const trackList = JSON.parse(trackResults).tracks.map(track => track.name);
+      console.log(trackList);
+      $.get('/albums', { artistId: artistObj.id }, (albumResults) => {
+        const albumList = JSON.parse(albumResults).items.map(album => album.name);
+        console.log(albumList);
+      })
+    })
   })
 })
 
