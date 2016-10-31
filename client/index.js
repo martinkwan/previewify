@@ -1,12 +1,12 @@
 /**
- * TO DO : Modularize template function
+ * TO DO :
  * Change to promises
  */
 
 /**
  * Handlebar template function
  * @param  {Object} obj              [Object of data to render]
- * @param  {String} templateSelector [String of DOM location to render to]
+ * @param  {String} templateSelector [DOM location to select template and to render to]
  */
 function populateTemplate(obj, templateSelector) {
   // Grab the template script
@@ -53,8 +53,7 @@ $('.search-form').submit((event) => {
 $('.album-list-placeholder').on('click', 'img', function () {
   const albumId = $(this).data('album-id');
   $.get('/albumTracks', { albumId }, (albumTrackResults) => {
-    // console.log(albumTrackResults);
     const trackList = JSON.parse(albumTrackResults).items.map(track => track.name);
-    populateTemplate(trackList, 'track-list');
+    populateTemplate({ trackList }, 'track-list');
   });
 });
