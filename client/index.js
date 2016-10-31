@@ -1,3 +1,7 @@
+/**
+ * TO DO : Modularize template function
+ */
+
 $(function(){
   // Grab the template script
   const theTemplateScript = $('#artist-profile-template').html();
@@ -29,8 +33,11 @@ $('.search-form').submit((event) => {
       populateTrackList(trackList);
       console.log(trackList);
       $.get('/albums', { artistId: artistObj.id }, (albumResults) => {
-        const albumList = JSON.parse(albumResults).items.map(album => album.name);
-        console.log(albumList);
+        const albumObj = JSON.parse(albumResults).items.map((album) => {
+          return { albumImg: album.images[1].url, albumId: album.id };
+        });
+        populateAlbumImg(albumObj);
+        console.log(albumObj);
       })
     })
   })
@@ -74,4 +81,23 @@ function populateTrackList(trackList) {
 
   // Add compiled html to the page
   $('.track-list-placeholder').html(theCompiledHtml);
+}
+
+function populateAlbumImg(albumObj){
+  // Grab the template script
+  const theTemplateScript = $('#album-list-template').html();
+
+  // Compile the template
+  const theTemplate = Handlebars.compile(theTemplateScript);
+
+  // Define Data
+  let context = {
+    albumObj,
+  };
+
+  // Pass data to template
+  let theCompiledHtml = theTemplate(context);
+
+  // Add compiled html to the page
+  $('.album-list-placeholder').html(theCompiledHtml);
 }

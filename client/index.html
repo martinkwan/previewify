@@ -21,7 +21,7 @@
     <script id="artist-profile-template" type="text/x-handlebars-template">
       <div class="row">
         <div class="col-md-4">
-          <img src={{artistImg}} alt="artist image"></img>
+          <img src={{artistImg}} alt="artist image"/>
         </div>
         <div class="col-md-8">
           <h1>{{artistName}}</h1>
@@ -30,18 +30,25 @@
     </script>
 
     <script id="track-list-template" type="text/x-handlebars-template">
-      <div class="col-md-6">
-        <ul>
-          {{#each tracks}}
-            <li>{{this}}</li>
-          {{/each}}
-        </ul>
-      </div>
+      <ul>
+        {{#each tracks}}
+          <li>{{this}}</li>
+        {{/each}}
+      </ul>
+    </script>
+
+    <script id="album-list-template" type="text/x-handlebars-template">
+      {{#each albumObj}}
+        <img src={{this.albumImg}} alt="album image" class="album-image" data-album-id={{this.albumId}}/>
+      {{/each}}
     </script>
 
     <div class = "content-placeholder container"></div>
     <div class = "container">
-      <div class = "track-list-placeholder row"></div>
+      <div class = "row">
+        <div class="track-list-placeholder col-md-6"></div>
+        <div class="album-list-placeholder col-md-6"></div>
+      </div>
     </div>
 
 
