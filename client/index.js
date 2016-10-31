@@ -38,10 +38,18 @@ $('.search-form').submit((event) => {
         });
         populateAlbumImg(albumObj);
         console.log(albumObj);
-      })
-    })
-  })
-})
+      });
+    });
+  });
+});
+
+$('.album-list-placeholder').on('click', 'img', function (event) {
+  const albumId = $(this).data('album-id');
+  $.get('/albumTracks', { albumId }, (albumTrackResults) => {
+    const trackList = JSON.parse(albumTrackResults).items.map(track => track.name);
+    populateTrackList(trackList);
+  });
+});
 
 function populateTemplate(artistObj) {
 
