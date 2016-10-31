@@ -14,9 +14,9 @@ app.use(express.static(path.join(__dirname, '/client')));
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, '/client/index.html')));
 
 /**
- * Function to return data from spotifi API
- * @param  {String} url [url of spotify api endpoint]
- * @param  {Object} res [Response from api endpoint]
+ * Function to return data from spotify API
+ * @param  {string} url [url of spotify api endpoint]
+ * @param  {object} res [response from api endpoint]
  */
 function getData(url, res) {
   request(url, (error, response, body) => {
