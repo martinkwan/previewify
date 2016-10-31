@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang "en">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <title> Spotify Artist Page </title>
+  </head>
+  <body>
+
+    <nav class="navbar navbar-light bg-faded">
+      <form class="form-inline float-sm-right search-form">
+        <input class="form-control" type="text" placeholder="Search">
+        <button class="btn btn-outline-success submit-button" type="submit">Search</button>
+      </form>
+    </nav>
+
+    <h1>Spotify Artist Page!</h1>
+
+    <script id="artist-profile-template" type="text/x-handlebars-template">
+      <div class="row">
+        <div class="col-md-4">
+          <img src={{artistImg}} alt="artist image"/>
+        </div>
+        <div class="col-md-8">
+          <h1>{{artistName}}</h1>
+        </div>
+      </div>
+    </script>
+
+    <script id="track-list-template" type="text/x-handlebars-template">
+      <h3>{{albumName}}</h3>
+      <ol>
+        {{#each trackList}}
+          <li>{{this}}</li>
+        {{/each}}
+      </ol>
+    </script>
+
+    <script id="album-list-template" type="text/x-handlebars-template">
+        <img src=thumbsUp.png alt="popular songs" class = "album-image" data-album-id="popularSongs" data-album-name="Popular" data-artist-id={{artistId}} />
+      {{#each albumObj}}
+        <img src={{this.albumImg}} alt="album image" class="album-image" data-album-id={{this.albumId}} data-album-name={{this.albumName}} />
+      {{/each}}
+    </script>
+
+    <div class = "artist-profile-placeholder container"></div>
+    <div class = "container">
+      <div class = "row">
+        <div class="track-list-placeholder col-md-6"></div>
+        <div class="album-list-placeholder col-md-6"></div>
+      </div>
+    </div>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+    <script src="index.js"></script>
+  </body>
+</html>

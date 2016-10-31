@@ -1,0 +1,32 @@
+{
+  "name": "artist-profile-page",
+  "version": "1.0.0",
+  "description": "My take on spotify's artist profile page",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/martinkwan/artist-profile-page.git"
+  },
+  "author": "Martin Kwan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/martinkwan/artist-profile-page/issues"
+  },
+  "homepage": "https://github.com/martinkwan/artist-profile-page#readme",
+  "devDependencies": {
+    "eslint": "^3.5.0",
+    "eslint-config-airbnb": "^11.1.0",
+    "eslint-plugin-import": "^2.0.1",
+    "eslint-plugin-jsx-a11y": "^2.2.3",
+    "eslint-plugin-react": "^6.4.1"
+  },
+  "dependencies": {
+    "express": "^4.14.0",
+    "path": "^0.12.7",
+    "request": "^2.76.0"
+  }
+}
