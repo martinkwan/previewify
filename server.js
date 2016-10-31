@@ -1,5 +1,6 @@
 /**
- * TO DO: Refactor request to api code into a resuable function (MORE DRY)
+ * TO DO:
+ * Fix duplicate album bug
  *
  */
 const express = require('express');
@@ -69,7 +70,7 @@ app.get('/tracks', (req, res) => {
  * Route to get artist's albums
  */
 app.get('/albums', (req, res) => {
-  const url = `https://api.spotify.com/v1/artists/${req.query.artistId}/albums?country=US`;
+  const url = `https://api.spotify.com/v1/artists/${req.query.artistId}/albums?market=US`;
   getData(url, res);
 });
 

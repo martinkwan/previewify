@@ -1,6 +1,6 @@
 /**
  * TO DO :
- * Change to promises
+ * Change to promises, make get request DRY
  */
 
 /**
@@ -35,12 +35,13 @@ $('.search-form').submit((event) => {
     populateTemplate(artistObj, 'artist-profile');
     $.get('/tracks', { artistId: artistObj.artistId }, (trackResults) => {
       const trackList = JSON.parse(trackResults).tracks.map(track => track.name);
-      populateTemplate({ trackList }, 'track-list');
+      populateTemplate({ trackList, albumName: 'Popular' }, 'track-list');
       $.get('/albums', { artistId: artistObj.artistId }, (albumResults) => {
         const albumObj = JSON.parse(albumResults).items.map((album) => {
-          return { albumImg: album.images[1].url, albumId: album.id };
+          return { albumImg: album.images[1].url, albumId: album.id, albumName: album.name.replace(/\s/g, 'unique.combo.of.words') };
         });
-        populateTemplate({ albumObj }, 'album-list');
+        const artistId = artistObj.artistId;
+        populateTemplate({ albumObj, artistId }, 'album-list');
       });
     });
   });
@@ -52,8 +53,17 @@ $('.search-form').submit((event) => {
  */
 $('.album-list-placeholder').on('click', 'img', function () {
   const albumId = $(this).data('album-id');
-  $.get('/albumTracks', { albumId }, (albumTrackResults) => {
-    const trackList = JSON.parse(albumTrackResults).items.map(track => track.name);
-    populateTemplate({ trackList }, 'track-list');
-  });
+  const albumName = $(this).data('album-name').replace(/(unique.combo.of.words)/g, ' ');
+  if (albumId === 'popularSongs') {
+    const artistId = $(this).data('artist-id');
+    $.get('/tracks', { artistId }, (trackResults) => {
+      const trackList = JSON.parse(trackResults).tracks.map(track => track.name);
+      populateTemplate({ trackList, albumName }, 'track-list');
+    });
+  } else {
+    $.get('/albumTracks', { albumId }, (albumTrackResults) => {
+      const trackList = JSON.parse(albumTrackResults).items.map(track => track.name);
+      populateTemplate({ trackList, albumName }, 'track-list');
+    });
+  }
 });

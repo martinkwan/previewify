@@ -30,16 +30,18 @@
     </script>
 
     <script id="track-list-template" type="text/x-handlebars-template">
-      <ul>
+      <h3>{{albumName}}</h3>
+      <ol>
         {{#each trackList}}
           <li>{{this}}</li>
         {{/each}}
-      </ul>
+      </ol>
     </script>
 
     <script id="album-list-template" type="text/x-handlebars-template">
+        <img src=thumbsUp.png alt="popular songs" class = "album-image" data-album-id="popularSongs" data-album-name="Popular" data-artist-id={{artistId}} />
       {{#each albumObj}}
-        <img src={{this.albumImg}} alt="album image" class="album-image" data-album-id={{this.albumId}} />
+        <img src={{this.albumImg}} alt="album image" class="album-image" data-album-id={{this.albumId}} data-album-name={{this.albumName}} />
       {{/each}}
     </script>
 
