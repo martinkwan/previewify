@@ -42,10 +42,13 @@ $('.search-form').submit((event) => {
     });
   });
 });
-
+/**
+ * Changes tracklist when an album art is clicked
+ */
 $('.album-list-placeholder').on('click', 'img', function (event) {
   const albumId = $(this).data('album-id');
   $.get('/albumTracks', { albumId }, (albumTrackResults) => {
+    // console.log(albumTrackResults);
     const trackList = JSON.parse(albumTrackResults).items.map(track => track.name);
     populateTrackList(trackList);
   });
