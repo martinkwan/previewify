@@ -36,8 +36,8 @@ $('.search-form').submit((event) => {
     $.get('/tracks', { artistId: artistObj.artistId }, (trackResults) => {
       const trackList = JSON.parse(trackResults).tracks.map(track => track.name);
       populateTemplate({ trackList, albumName: 'Popular' }, 'track-list');
-      $.get('/albums', { artistId: artistObj.artistId }, (albumResults) => {
-        const albumObj = JSON.parse(albumResults).items.map((album) => {
+      $.get('/albums', { artistName: artistObj.artistName }, (albumResults) => {
+        const albumObj = JSON.parse(albumResults).albums.items.map((album) => {
           return { albumImg: album.images[1].url, albumId: album.id, albumName: album.name.replace(/\s/g, 'unique.combo.of.words') };
         });
         const artistId = artistObj.artistId;
