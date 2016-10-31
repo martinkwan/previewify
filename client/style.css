@@ -7,5 +7,34 @@
 
 .album-image {
   width:32%;
-  height:32%;
+  height:auto;
+}
+
+.list-group {
+  list-style: decimal inside;
+}
+
+.list-group-item {
+  display: list-item;
+}
+
+.artist-name {
+  font-size: 5vw;
+  transform: translateY(50%)
+}
+@media (max-width: 480px) {
+  .artist-name{
+    font-size: 22px;
+  }
+  .album-name {
+    font-size: 18px;
+  }
+}
+
+.center-children {
+  text-align: center;
+}
+
+.artist-profile-placeholder {
+  margin: 3vw auto;
 }

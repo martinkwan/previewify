@@ -2,8 +2,8 @@
 <html lang "en">
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
     <link rel="stylesheet" type="text/css" href="style.css" />
     <title> Spotify Artist Page </title>
   </head>
@@ -18,20 +18,20 @@
 
     <script id="artist-profile-template" type="text/x-handlebars-template">
       <div class="row">
-        <div class="col-md-4">
-          <img src={{artistImg}} alt="artist image"/>
+        <div class="col-md-3 center-children">
+          <img class="artist-profile-img" src={{artistImg}} alt="artist image"/>
         </div>
-        <div class="col-md-8">
-          <h1>{{artistName}}</h1>
+        <div class="col-md-9 center-children">
+          <h1 class="artist-name">{{artistName}}</h1>
         </div>
       </div>
     </script>
 
     <script id="track-list-template" type="text/x-handlebars-template">
-      <h3>{{albumName}}</h3>
-      <ol>
+      <h3 class="album-name">{{albumName}}</h3>
+      <ol class="list-group">
         {{#each trackList}}
-          <li>{{this}}</li>
+          <li class="list-group-item">{{this}}</li>
         {{/each}}
       </ol>
     </script>
