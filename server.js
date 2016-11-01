@@ -49,7 +49,7 @@ app.get('/tracks', (req, res) => {
  * Route to get artist's albums
  */
 app.get('/albums', (req, res) => {
-  const url = `https://api.spotify.com/v1/search?query=${req.query.artistName}&type=album`;
+  const url = `https://api.spotify.com/v1/search?query=${req.query.artistName}&type=album&market=US&limit=50`;
   getData(url, res);
 });
 

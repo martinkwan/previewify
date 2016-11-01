@@ -1,7 +1,6 @@
 /**
  * TO DO:
  * display mini album art next to list?
- * One size fit all artist art
  * Footer
  */
 
@@ -34,10 +33,12 @@ function getArtist(artist, resolve, reject) {
     if (artistObj) {
       artistObj = {
         artistName: artistObj.name,
-        artistImg: artistObj.images[2].url,
+        artistImg: artistObj.images[1].url,
         artistId: artistObj.id,
       };
       populateTemplate(artistObj, 'artist-profile');
+      $('.artist-profile-img').css('background-image', `url("${artistObj.artistImg}")`);
+
       resolve(artistObj);
     } else {
       reject();
@@ -78,17 +79,26 @@ function displayCoverArt(coverArtUrls) {
 /**
  * Make a GET request to server to spotify api to grab artist's albums
  * Then render album list using handlebars.js template
+ * Check if album image length > 1,
+ * because 'kanye west' query had error with album image not showing
  * @param  {string} artistName [name of artist]
  * @param  {string} artistId   [id of artist]
  */
 function getAlbums(artistName, artistId) {
   $.get('/albums', { artistName }, (albumResults) => {
-    const coverArtUrls = JSON.parse(albumResults).albums.items.map(album => `url('${album.images[1].url}')`);
+    const coverArtUrls = JSON.parse(albumResults).albums.items.map((album) => {
+      if (album.images.length > 1) {
+        return `url('${album.images[1].url}')`
+      }
+    });
     const albumObj = JSON.parse(albumResults).albums.items.map((album) => {
-      return { albumImg: album.images[1].url, albumId: album.id, albumName: album.name.replace(/\s/g, 'unique.combo.of.words') };
+      if (album.images.length > 1) {
+        return { albumImg: album.images[1].url, albumId: album.id, albumName: album.name.replace(/\s/g, 'unique.combo.of.words') };
+      }
     });
     displayCoverArt(coverArtUrls);
     populateTemplate({ albumObj, artistId }, 'album-list');
+    $('.popular-album-image').addClass('active-album');
   });
 }
 

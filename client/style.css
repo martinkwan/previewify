@@ -42,9 +42,6 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
     display: none;
   }
 }
-/*nav {
-  background-color: rgba(255, 255, 255, 0);
-}*/
 
 /**
  * =========================================
@@ -53,19 +50,21 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
  */
 
 .artist-profile-img {
-  /*-webkit-box-shadow: 10px 10px 15px 0px rgba(0,0,0,0.75);
-  -moz-box-shadow: 10px 10px 15px 0px rgba(0,0,0,0.75);
-  box-shadow: 10px 10px 15px 0px rgba(0,0,0,0.75);*/
+  width: 200px;
+  height: 200px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 50%;
+  margin: 0 auto;
 }
 
 .artist-name {
   font-size: 5vw;
-  /*transform: translateY(50%);*/
   color: white;
 }
 
 @media (max-width: 480px) {
-  .artist-name{
+  .artist-name {
     font-size: 22px;
   }
   .album-name {
@@ -74,16 +73,18 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
 }
 
 @media (max-width: 767px) {
-  .artist-name{
+  .artist-name {
     margin-top: 20px;
     margin-bottom: 20px;
+  }
+  .artist-profile-img {
+    width: 150px;
+    height: 150px;
   }
 }
 
 .artist-profile-placeholder {
   margin-top: 25px;
-
-  /*margin: 1vw auto;*/
 }
 
 .cover-art-background {
