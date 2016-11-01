@@ -50,6 +50,24 @@ function getTracks(artistId) {
   });
 }
 
+
+/**
+ * If artist has less than 8 albums, iterate through albums and add again to array
+ * @param  {array} coverArtUrls [array of album art urls]
+ */
+function displayCoverArt(coverArtUrls) {
+  let i = 0;
+  while (coverArtUrls.length < 8) {
+    if (!coverArtUrls[i]) {
+      i = 0;
+    }
+    coverArtUrls.push(coverArtUrls[i]);
+    i += 1;
+  }
+  const finalCoverArtUrls = coverArtUrls.slice(0, 8).join(', ');
+  $('.cover-art-background').css('background-image', `linear-gradient(rgba(0, 0, 0, 0),rgba(0, 0, 0, 0.8)),${finalCoverArtUrls}`);
+}
+
 /**
  * Make a GET request to server to spotify api to grab artist's albums
  * Then render album list using handlebars.js template
@@ -58,19 +76,11 @@ function getTracks(artistId) {
  */
 function getAlbums(artistName, artistId) {
   $.get('/albums', { artistName }, (albumResults) => {
-    const coverArtUrl = JSON.parse(albumResults).albums.items.map(album => album.images[1].url);
+    const coverArtUrls = JSON.parse(albumResults).albums.items.map(album => `url('${album.images[1].url}')`);
     const albumObj = JSON.parse(albumResults).albums.items.map((album) => {
       return { albumImg: album.images[1].url, albumId: album.id, albumName: album.name.replace(/\s/g, 'unique.combo.of.words') };
     });
-    let i = 0;
-    while (coverArtUrl.length < 8) {
-      if (!coverArtUrl[i]) {
-        i = 0;
-      }
-      coverArtUrl.push(coverArtUrl[i]);
-      i += 1;
-    }
-    $('.cover-art-background').css('background-image', `url('${coverArtUrl[0]}'), url('${coverArtUrl[1]}'), url('${coverArtUrl[2]}'), url('${coverArtUrl[3]}'), url('${coverArtUrl[4]}'), url('${coverArtUrl[5]}'), url('${coverArtUrl[6]}'), url('${coverArtUrl[7]}')`);
+    displayCoverArt(coverArtUrls);
     populateTemplate({ albumObj, artistId }, 'album-list');
   });
 }
