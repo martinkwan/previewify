@@ -37,9 +37,13 @@
     </script>
 
     <script id="album-list-template" type="text/x-handlebars-template">
+      <span class="album-list-cell">
         <img src=thumbsUp.png alt="popular songs" class = "album-image" data-album-id="popularSongs" data-album-name="Popular" data-artist-id={{artistId}} />
+      </span>
       {{#each albumObj}}
+      <span class="album-list-cell">
         <img src={{this.albumImg}} alt="album image" class="album-image" data-album-id={{this.albumId}} data-album-name={{this.albumName}} />
+      </span>
       {{/each}}
     </script>
 
@@ -55,8 +59,10 @@
 
     <div class = "container">
       <div class = "row">
-        <div class="track-list-placeholder col-md-6"></div>
-        <div class="album-list-placeholder col-md-6"></div>
+        <div class="album-list-outer col-md-6 push-md-6">
+          <div class="album-list-placeholder album-list-inner"></div>
+        </div>
+        <div class="track-list-placeholder col-md-6 pull-md-6"></div>
       </div>
     </div>
 

@@ -23,7 +23,6 @@ function populateTemplate(obj, templateSelector) {
  */
 function getArtist(artist, resolve, reject) {
   $.get('/artist', { artist }, (artistResults) => {
-    console.log(artistResults);
     let artistObj = JSON.parse(artistResults).artists.items[0];
     if (artistObj) {
       artistObj = {

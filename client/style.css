@@ -38,3 +38,41 @@
 .artist-profile-placeholder {
   margin: 3vw auto;
 }
+
+.album-list-outer {
+  height: 750px;
+  overflow-y: scroll;
+}
+
+@media (max-width: 767px) {
+  .album-list-outer{
+    height:118px;
+  }
+  .album-list-inner {
+    /*height: 118px;
+    overflow-y: visible;
+    overflow-x: scroll;*/
+    display: table-row;
+  }
+  .album-list-cell {
+    display: table-cell;
+  }
+  .album-image {
+    /*display: block;*/
+    width: 118px;
+  }
+}
+
+/*@media (max-width: 480px) {
+  .album-list-outer {
+    height: 118px;
+    overflow-y: visible;
+    overflow-x: scroll;
+  }
+  .album-list-inner {
+    width: 10000px;
+  }
+  .album-image {
+    width: 118px;
+  }
+}*/
