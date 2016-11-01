@@ -1,4 +1,11 @@
 /**
+ * TO DO:
+ * display mini album art next to list?
+ * One size fit all artist art
+ * Footer
+ */
+
+/**
  * Handlebar template function
  * Grabs template script
  * Then compiles template
@@ -141,6 +148,8 @@ $('.search-form').submit(function (event) {
  * Cannot be an arrow function because of the 'this' binding
  */
 $('.album-list-placeholder').on('click', 'img', function () {
+  $('.active-album').removeClass('active-album');
+  $(this).addClass('active-album');
   const albumId = $(this).data('album-id');
   const albumName = $(this).data('album-name').replace(/(unique.combo.of.words)/g, ' ');
   if (albumId === 'popularSongs') {

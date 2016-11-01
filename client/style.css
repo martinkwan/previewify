@@ -1,8 +1,41 @@
+
+/**
+ * =========================================
+ * General purpose classes
+ * =========================================
+ */
+
+.center-children {
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .bottom-container {
+    margin-top: 130px;
+  }
+}
+
+body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
+  font-family: "Helvetica Neue", Arial, sans-serif;
+}
+
 /**
  * =========================================
  * Nav Bar
  * =========================================
  */
+
+.btn-outline-success {
+  color: #1DB954;
+}
+.btn-outline-success:hover {
+  background-color: #1DB954;
+  border-color: #1DB954;
+}
+
+.has-success .form-control {
+  border-color: #1DB954;
+}
 
 @media (max-width: 575px) {
   .submit-button {
@@ -102,6 +135,10 @@
   box-shadow: 10px 10px 15px 0px rgba(0,0,0,0.75);
 }
 
+.popular-album-image {
+  background-color: white;
+}
+
 /**
  * CSS for sidescrolling albums when viewed on mobile
  */
@@ -120,18 +157,6 @@
   }
 }
 
-/**
- * =========================================
- * General purpose classes
- * =========================================
- */
-
-.center-children {
-  text-align: center;
-}
-
-@media (min-width: 768px) {
-  .bottom-container {
-    margin-top: 130px;
-  }
+.active-album {
+  border: 4px solid #1DB954;
 }
