@@ -11,7 +11,7 @@
 
 @media (min-width: 768px) {
   .bottom-container {
-    margin-top: 130px;
+    margin-top: 60px;
   }
 }
 
@@ -59,7 +59,7 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
 }
 
 .artist-name {
-  font-size: 5vw;
+  font-size: 4vw;
   color: white;
 }
 
@@ -136,6 +136,10 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
   box-shadow: 10px 10px 15px 0px rgba(0,0,0,0.75);
 }
 
+.album-image:hover {
+  cursor: pointer;
+}
+
 .popular-album-image {
   background-color: white;
 }
@@ -160,4 +164,10 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
 
 .active-album {
   border: 4px solid #1DB954;
+}
+
+@media (min-width: 768px){
+  .album-list-outer {
+    margin-top: 30px;
+  }
 }

@@ -2,6 +2,9 @@
  * TO DO:
  * display mini album art next to list?
  * Footer
+ * Landing page
+ * x to clear search box
+ * 30 second song preview
  */
 
 /**
@@ -126,11 +129,19 @@ function formValidation(context, success) {
     $(context).removeClass('has-danger');
     $(context).find('input').addClass('form-control-success');
     $(context).addClass('has-success');
+    // setTimeout(() => {
+    //   $(context).find('input').removeClass('form-control-success');
+    //   $(context).removeClass('has-success');
+    // }, 1000);
   } else {
     $(context).find('input').removeClass('form-control-success');
     $(context).removeClass('has-success');
     $(context).find('input').addClass('form-control-danger');
     $(context).addClass('has-danger');
+    // setTimeout(() => {
+    //   $(context).find('input').removeClass('form-control-danger');
+    //   $(context).removeClass('has-danger');
+    // }, 1000);
   }
 }
 
