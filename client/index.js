@@ -58,9 +58,19 @@ function getTracks(artistId) {
  */
 function getAlbums(artistName, artistId) {
   $.get('/albums', { artistName }, (albumResults) => {
+    const coverArtUrl = JSON.parse(albumResults).albums.items.map(album => album.images[1].url);
     const albumObj = JSON.parse(albumResults).albums.items.map((album) => {
       return { albumImg: album.images[1].url, albumId: album.id, albumName: album.name.replace(/\s/g, 'unique.combo.of.words') };
     });
+    let i = 0;
+    while (coverArtUrl.length < 8) {
+      if (!coverArtUrl[i]) {
+        i = 0;
+      }
+      coverArtUrl.push(coverArtUrl[i]);
+      i += 1;
+    }
+    $('.cover-art-background').css('background-image', `url('${coverArtUrl[0]}'), url('${coverArtUrl[1]}'), url('${coverArtUrl[2]}'), url('${coverArtUrl[3]}'), url('${coverArtUrl[4]}'), url('${coverArtUrl[5]}'), url('${coverArtUrl[6]}'), url('${coverArtUrl[7]}')`);
     populateTemplate({ albumObj, artistId }, 'album-list');
   });
 }

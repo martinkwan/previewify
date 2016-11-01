@@ -9,44 +9,21 @@
   </head>
   <body>
 
-    <nav class="navbar navbar-light bg-faded">
+<!-- ===============================================================
+      The DOM
+     =============================================================== -->
+
+    <!-- Nav bar -->
+    <nav class="navbar navbar-light">
       <form class="form-inline float-sm-right search-form">
         <input class="form-control" type="text" placeholder="Search">
         <button class="btn btn-outline-success submit-button" type="submit">Search</button>
       </form>
     </nav>
 
-    <script id="artist-profile-template" type="text/x-handlebars-template">
-      <div class="row">
-        <div class="col-md-3 center-children">
-          <img class="artist-profile-img" src={{artistImg}} alt="artist image"/>
-        </div>
-        <div class="col-md-9 center-children">
-          <h1 class="artist-name">{{artistName}}</h1>
-        </div>
-      </div>
-    </script>
-
-    <script id="track-list-template" type="text/x-handlebars-template">
-      <h3 class="album-name">{{albumName}}</h3>
-      <ol class="list-group">
-        {{#each trackList}}
-          <li class="list-group-item">{{this}}</li>
-        {{/each}}
-      </ol>
-    </script>
-
-    <script id="album-list-template" type="text/x-handlebars-template">
-      <span class="album-list-cell">
-        <img src=thumbsUp.png alt="popular songs" class = "album-image" data-album-id="popularSongs" data-album-name="Popular" data-artist-id={{artistId}} />
-      </span>
-      {{#each albumObj}}
-      <span class="album-list-cell">
-        <img src={{this.albumImg}} alt="album image" class="album-image" data-album-id={{this.albumId}} data-album-name={{this.albumName}} />
-      </span>
-      {{/each}}
-    </script>
-
+    <!-- Landing page, overwritten after first artist search -->
+    <div class="cover-art-background">
+    </div>
     <div class = "artist-profile-placeholder container">
       <div class="row">
         <h1>Welcome to my spotify artist page!</h1>
@@ -66,6 +43,43 @@
       </div>
     </div>
 
+<!-- ===============================================================
+      Handlebar Templates
+     =============================================================== -->
+
+    <!-- Artist profile -->
+    <script id="artist-profile-template" type="text/x-handlebars-template">
+      <div class="row">
+        <div class="col-md-3 center-children">
+          <img class="artist-profile-img" src={{artistImg}} alt="artist image"/>
+        </div>
+        <div class="col-md-9 center-children">
+          <h1 class="artist-name">{{artistName}}</h1>
+        </div>
+      </div>
+    </script>
+
+    <!-- Tracklist -->
+    <script id="track-list-template" type="text/x-handlebars-template">
+      <h3 class="album-name">{{albumName}}</h3>
+      <ol class="list-group">
+        {{#each trackList}}
+          <li class="list-group-item">{{this}}</li>
+        {{/each}}
+      </ol>
+    </script>
+
+    <!-- Album art list -->
+    <script id="album-list-template" type="text/x-handlebars-template">
+      <span class="album-list-cell">
+        <img src=thumbsUp.png alt="popular songs" class = "album-image" data-album-id="popularSongs" data-album-name="Popular" data-artist-id={{artistId}} />
+      </span>
+      {{#each albumObj}}
+      <span class="album-list-cell">
+        <img src={{this.albumImg}} alt="album image" class="album-image" data-album-id={{this.albumId}} data-album-name={{this.albumName}} />
+      </span>
+      {{/each}}
+    </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.js"></script>
     <script src="https://code.jquery.com/jquery-3.1.1.js"></script>

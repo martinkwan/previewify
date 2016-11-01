@@ -1,14 +1,24 @@
-@media (max-width: 480px) {
+/**
+ * =========================================
+ * Nav Bar
+ * =========================================
+ */
+
+@media (max-width: 575px) {
   .submit-button {
     display: none;
   }
 }
+/*nav {
+  background-color: rgba(255, 255, 255, 0);
+}*/
 
 
-.album-image {
-  width:32%;
-  height:auto;
-}
+/**
+ * =========================================
+ * Track list
+ * =========================================
+ */
 
 .list-group {
   list-style: decimal inside;
@@ -18,10 +28,18 @@
   display: list-item;
 }
 
+/**
+ * =========================================
+ * Artist Profile
+ * =========================================
+ */
+
 .artist-name {
   font-size: 5vw;
-  transform: translateY(50%)
+  /*transform: translateY(50%);*/
+  color: white;
 }
+
 @media (max-width: 480px) {
   .artist-name{
     font-size: 22px;
@@ -31,48 +49,63 @@
   }
 }
 
-.center-children {
-  text-align: center;
-}
-
 .artist-profile-placeholder {
   margin: 3vw auto;
 }
+
+.cover-art-background {
+  z-index: -1;
+  top:0;
+  background-repeat: no-repeat;
+  background-position: 0%,15%,30%,45%,60%,75%,90%,105%;
+  /*background-position: 0%,20%,40%,60%,80%,100%;*/
+  height: 300px;
+  width: 100%;
+  position: absolute;
+  -webkit-filter: blur(10px);
+  filter: blur(10px);
+}
+
+/**
+ * =========================================
+ * Album Art
+ * =========================================
+ */
 
 .album-list-outer {
   height: 750px;
   overflow-y: scroll;
 }
 
+.album-image {
+  width:32%;
+  height:auto;
+}
+
+/**
+ * CSS for sidescrolling albums when viewed on mobile
+ */
 @media (max-width: 767px) {
   .album-list-outer{
-    height:118px;
+    height:auto;
   }
   .album-list-inner {
-    /*height: 118px;
-    overflow-y: visible;
-    overflow-x: scroll;*/
     display: table-row;
   }
   .album-list-cell {
     display: table-cell;
   }
   .album-image {
-    /*display: block;*/
     width: 118px;
   }
 }
 
-/*@media (max-width: 480px) {
-  .album-list-outer {
-    height: 118px;
-    overflow-y: visible;
-    overflow-x: scroll;
-  }
-  .album-list-inner {
-    width: 10000px;
-  }
-  .album-image {
-    width: 118px;
-  }
-}*/
+/**
+ * =========================================
+ * General purpose classes
+ * =========================================
+ */
+
+.center-children {
+  text-align: center;
+}
