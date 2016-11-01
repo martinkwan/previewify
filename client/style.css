@@ -10,13 +10,14 @@
 }
 
 @media (min-width: 768px) {
-  .bottom-container {
+  .bottom-half {
     margin-top: 60px;
   }
 }
 
 body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
   font-family: "Helvetica Neue", Arial, sans-serif;
+  color: #191414;
 }
 
 /**
@@ -168,6 +169,48 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
 
 @media (min-width: 768px){
   .album-list-outer {
-    margin-top: 30px;
+    margin-top: 38px;
   }
 }
+
+/**
+ * =========================================
+ * Landing Page
+ * =========================================
+ */
+
+.landing-page-title{
+  margin-bottom: 36px;
+}
+
+.landing-page-search {
+  display:inline;
+  width: 50%;
+}
+
+.landing-page {
+  top: 8vw;
+  position: relative;
+}
+
+/**
+ * =========================================
+ * Footer
+ * =========================================
+ */
+
+/*footer {
+  position: absolute;
+  background: #1DB954;
+  width: 100%;
+}
+footer > span {
+  color: white;
+  font-size: 15px;
+}
+.footer-link {
+  color:white;
+}
+.footer-link:hover{
+  color:black;
+}*/
