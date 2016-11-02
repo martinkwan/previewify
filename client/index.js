@@ -234,17 +234,26 @@ $('.track-list-placeholder').on('click', 'li', function () {
     if (audioObject) {
       audioObject.pause();
     }
-    // Set up audioObject for song to be played
-    const previewUrl = $(this).data('track-preview');
-    audioObject = new Audio(previewUrl);
-    currentAudio.set(audioObject);
-    audioObject.play();
-    $(this).addClass('playing');
-    audioObject.addEventListener('ended', () => {
-      $(this).removeClass('playing');
-    });
-    audioObject.addEventListener('pause', () => {
-      $(this).removeClass('playing');
-    });
+    playSong(this);
   }
 });
+/**
+ * Play song at context DOM element,
+ * Recursively play next song
+ * @param  {keyword} context [dom element to play song]
+ */
+function playSong(context) {
+  // Set up audioObject for song to be played
+  const previewUrl = $(context).data('track-preview');
+  const audioObject = new Audio(previewUrl);
+  currentAudio.set(audioObject);
+  audioObject.play();
+  $(context).addClass('playing');
+  audioObject.addEventListener('ended', () => {
+    $(context).removeClass('playing');
+    playSong($(context).next());
+  });
+  audioObject.addEventListener('pause', () => {
+    $(context).removeClass('playing');
+  });
+}
