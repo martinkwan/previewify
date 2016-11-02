@@ -8,12 +8,12 @@
     <link rel="stylesheet" type="text/css" href="style.css" />
     <title> Spotify Artist Page </title>
   </head>
-  <body>
 
 <!-- ===============================================================
       The DOM
      =============================================================== -->
 
+  <body>
     <!-- Nav bar -->
     <nav class="navbar hide-this">
       <form class="form-inline float-sm-right search-form has-success">
@@ -45,6 +45,8 @@
         </div>
         <div class="track-list-placeholder col-md-6 pull-md-6"></div>
       </div>
+    </div>
+    <div class="container-fluid related-artist-container hide-this">
       <div class="row">
         <h3 class="center-children related-artist-header hide-this"> Explore similar artists</h3>
         <div class="artist-list-outer">
@@ -54,8 +56,17 @@
       </div>
     </div>
 
-    <!-- implement footer later -->
-    <footer class = "center-children footer-position">
+    <!-- Audio bar -->
+    <footer class="audio-bar light-box-shadow hide-this">
+      <span>
+        <i class="noselect fa fa-step-backward hvr-grow audio-controls"></i>
+        <i class="noselect fa fa-play-circle-o play-pause hvr-grow audio-controls"></i>
+        <i class="noselect fa fa-step-forward hvr-grow audio-controls"></i>
+      </span>
+    </footer>
+
+    <!-- Footer -->
+    <footer class = "center-children footer-position footer-bar">
       <span>
         Created by Martin Kwan
         &nbsp;
@@ -88,7 +99,7 @@
     <script id="track-list-template" type="text/x-handlebars-template">
       <h3 class="album-name">{{albumName}}</h3>
       <div class = "track-list">
-        <ol class="list-group">
+        <ol class="list-group track-list-ol">
           {{#each trackList}}
             <li class="list-group-item" data-track-preview={{this.trackPreview}}>{{this.trackName}}</li>
           {{/each}}
@@ -99,11 +110,11 @@
     <!-- Album art list -->
     <script id="album-list-template" type="text/x-handlebars-template">
       <span class="album-list-cell">
-        <img src=trendingUp.png alt="popular songs" class = "album-image box-shadow popular-album-image" data-album-id="popularSongs" data-album-name="Popular" data-artist-id={{artistId}} />
+        <img src=trendingUp.png alt="popular songs" class = "album-image hvr-bob box-shadow popular-album-image" data-album-id="popularSongs" data-album-name="Popular" data-artist-id={{artistId}} />
       </span>
       {{#each albumObj}}
       <span class="album-list-cell">
-        <img src={{this.albumImg}} alt="album image" class="album-image box-shadow" data-album-id={{this.albumId}} data-album-name={{this.albumName}} />
+        <img src={{this.albumImg}} alt="album image" class="album-image hvr-bob box-shadow" data-album-id={{this.albumId}} data-album-name={{this.albumName}} />
       </span>
       {{/each}}
     </script>
@@ -112,7 +123,7 @@
     <script id="related-artists-template" type="text/x-handlebars-template">
       {{#each relatedArtists}}
       <span class="artist-list-cell">
-        <span class="card box-shadow">
+        <span class="card box-shadow hvr-bob">
             <div class="related-artist-img" style={{this.artistImg}} alt="Card image cap"> </div>
             <div class="card-block">
               <p class="card-text">{{this.artistName}}</p>

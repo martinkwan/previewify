@@ -14,6 +14,13 @@
     margin-top: 60px;
   }
 }
+/**
+ * Need to make body relative for scroll-spy to work
+ * Need to add to body only after landing page
+ */
+.make-relative {
+  position:relative;
+}
 
 body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
   font-family: "Helvetica Neue", Arial, sans-serif;
@@ -29,6 +36,29 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
   -webkit-box-shadow: 10px 10px 15px 0px rgba(0,0,0,0.75);
   -moz-box-shadow: 10px 10px 15px 0px rgba(0,0,0,0.75);
   box-shadow: 10px 10px 15px 0px rgba(0,0,0,0.75);
+}
+
+.light-box-shadow {
+  -webkit-box-shadow: 0px -5px 10px 0px rgba(0,0,0,0.48);
+  -moz-box-shadow: 0px -5px 10px 0px rgba(0,0,0,0.48);
+  box-shadow: 0px -5px 10px 0px rgba(0,0,0,0.48);
+}
+
+.fa:hover {
+  cursor: pointer;
+}
+
+/**
+ * Class to prevent text from being selected
+ */
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Chrome/Safari/Opera */
+     -khtml-user-select: none; /* Konqueror */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  not supported by any browser */
 }
 
 /**
@@ -126,10 +156,17 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
 }
 
 .playing {
+  background-color: #1DB954;
+  color:white;
+  /*border: 4px solid #1DB954;*/
+}
+.selected {
   border: 4px solid #1DB954;
 }
 .list-group-item:hover {
   cursor: pointer;
+  border: 4px solid #1DB954;
+
 }
 
 .track-list {
@@ -147,6 +184,7 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
   overflow-y: scroll;
   padding-bottom: 10px;
   margin-bottom: 40px;
+  padding-top:10px;
 }
 
 .album-list-container {
@@ -221,6 +259,7 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
 .artist-list-outer{
  overflow-x: auto;
  height:auto;
+ padding-top: 10px;
 }
 .artist-list-inner {
  display: table-row;
@@ -234,7 +273,9 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
 .artist-image {
  width: 118px;
 }
-
+.card {
+  margin-bottom: 30px;
+}
 .card-text {
   font-size: 12px;
   text-align: center;
@@ -246,6 +287,50 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
 .related-artist-header {
   margin: 30px 0;
 }
+
+@media (max-width: 480px){
+  .related-artist-header {
+    font-size: 18px;
+  }
+}
+
+.related-artist-container {
+  padding-top: 30px;
+  background-color:#E4EDE4;
+  width:100%;
+}
+
+/**
+ * =========================================
+ * Audio bar
+ * =========================================
+ */
+
+.audio-bar{
+  width:100%;
+  background: #1DB954;
+  position:fixed;
+  padding: 5px;
+  text-align: center;
+  z-index:1;
+  bottom:0px;
+}
+.audio-bar > span {
+  color: white;
+  font-size: 30px;
+  bottom:0;
+}
+
+.play-pause {
+  margin-right: 20px;
+  margin-left: 20px;
+  font-size: 50px;
+}
+.scroll-spy-position {
+  bottom:-62px;
+  position: absolute;
+}
+
 
 /**
  * =========================================
@@ -274,13 +359,15 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
  * =========================================
  */
 
-footer {
+.footer-bar {
   position: absolute;
   background: #1DB954;
   width: 100%;
-  margin-top: 30px;
+  margin-top: 60px;
+  padding: 5px;
+  z-index: 2;
 }
-footer > span {
+.footer-bar > span {
   color: white;
   font-size: 15px;
 }
@@ -292,4 +379,95 @@ footer > span {
 }
 .footer-position {
   bottom: 0;
+}
+
+/**
+ * =========================================
+ * Animations
+ * =========================================
+ */
+
+/**
+ * Taken from hover.css
+ * https://github.com/IanLunn/Hover
+ /* Bob effect */
+
+@-webkit-keyframes hvr-bob {
+ 0% {
+   -webkit-transform: translateY(-5px);
+   transform: translateY(-5px);
+ }
+ 50% {
+   -webkit-transform: translateY(-3px);
+   transform: translateY(-3px);
+ }
+ 100% {
+   -webkit-transform: translateY(-5px);
+   transform: translateY(-5px);
+ }
+}
+
+@keyframes hvr-bob {
+ 0% {
+   -webkit-transform: translateY(-5px);
+   transform: translateY(-5px);
+ }
+ 50% {
+   -webkit-transform: translateY(-3px);
+   transform: translateY(-3px);
+ }
+ 100% {
+   -webkit-transform: translateY(-5px);
+   transform: translateY(-5px);
+ }
+}
+
+@-webkit-keyframes hvr-bob-float {
+ 100% {
+   -webkit-transform: translateY(-5px);
+   transform: translateY(-5px);
+ }
+}
+
+@keyframes hvr-bob-float {
+ 100% {
+   -webkit-transform: translateY(-5px);
+   transform: translateY(-5px);
+ }
+}
+
+.hvr-bob:hover,
+.hvr-bob:focus,
+.hvr-bob:active {
+ -webkit-animation-name: hvr-bob-float, hvr-bob;
+ animation-name: hvr-bob-float, hvr-bob;
+ -webkit-animation-duration: .3s, 1.5s;
+ animation-duration: .3s, 1.5s;
+ -webkit-animation-delay: 0s, .3s;
+ animation-delay: 0s, .3s;
+ -webkit-animation-timing-function: ease-out, ease-in-out;
+ animation-timing-function: ease-out, ease-in-out;
+ -webkit-animation-iteration-count: 1, infinite;
+ animation-iteration-count: 1, infinite;
+ -webkit-animation-fill-mode: forwards;
+ animation-fill-mode: forwards;
+ -webkit-animation-direction: normal, alternate;
+ animation-direction: normal, alternate;
+}
+
+/* Grow */
+.hvr-grow {
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px transparent;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: transform;
+  transition-property: transform;
+}
+.hvr-grow:hover, .hvr-grow:focus, .hvr-grow:active {
+  -webkit-transform: scale(1.2);
+  transform: scale(1.2);
 }

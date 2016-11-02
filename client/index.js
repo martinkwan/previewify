@@ -19,9 +19,12 @@ function populateTemplate(obj, templateSelector) {
  * @param  {string} artistImg [url of artist image]
  */
 function adjustCss(artistImg) {
+  $('body').addClass('make-relative');
   $('.artist-profile-img').css('background-image', `url("${artistImg}")`);
   $('nav').removeClass('hide-this');
-  $('footer').removeClass('footer-position');
+  $('.related-artist-container').removeClass('hide-this');
+  $('.audio-bar').removeClass('hide-this');
+  $('.footer-bar').removeClass('footer-position');
   $('.related-artist-header').removeClass('hide-this');
   $('.album-list-outer').addClass('album-list-container');
 }
@@ -189,7 +192,6 @@ $('.related-artists-placeholder').on('click', 'span', function () {
   loadNewArtist(artist, this);
 })
 
-
 /**
  * Changes tracklist when an album art is clicked
  * Cannot be an arrow function because of the 'this' binding
@@ -222,10 +224,49 @@ const currentAudio = (function () {
 }());
 
 /**
+ * Play song at context DOM element,
+ * Recursively play next song
+ * @param  {keyword} context [dom element to play song]
+ */
+function playSong(context) {
+  // Set up audioObject for song to be played
+  const previewUrl = $(context).data('track-preview');
+  if (!previewUrl) {
+    $(context).addClass('list-group-item-danger has-danger');
+    // $(context).text()
+    return;
+  }
+  const audioObject = new Audio(previewUrl);
+  currentAudio.set(audioObject);
+  audioObject.play();
+  $(context).removeClass('selected');
+  $(context).addClass('playing');
+  audioObject.addEventListener('ended', () => {
+    $('.play-pause').addClass('fa-play-circle-o');
+    $('.play-pause').removeClass('fa-pause-circle-o');
+    $(context).removeClass('playing');
+    $(context).removeClass('selected');
+    playSong($(context).next());
+  });
+  audioObject.addEventListener('pause', () => {
+    $('.play-pause').addClass('fa-play-circle-o');
+    $('.play-pause').removeClass('fa-pause-circle-o');
+    $(context).removeClass('playing');
+    $(context).addClass('selected');
+  });
+  audioObject.addEventListener('play', () => {
+    $('.play-pause').addClass('fa-pause-circle-o');
+    $('.play-pause').removeClass('fa-play-circle-o');
+    $('.selected').removeClass('selected');
+    $(context).addClass('playing');
+  });
+}
+
+/**
  * Plays song when clicked
  */
 $('.track-list-placeholder').on('click', 'li', function () {
-  let audioObject = currentAudio.get();
+  const audioObject = currentAudio.get();
   // If this song is playing, pause it
   if ($(this).hasClass('playing')) {
     audioObject.pause();
@@ -234,17 +275,54 @@ $('.track-list-placeholder').on('click', 'li', function () {
     if (audioObject) {
       audioObject.pause();
     }
-    // Set up audioObject for song to be played
-    const previewUrl = $(this).data('track-preview');
-    audioObject = new Audio(previewUrl);
-    currentAudio.set(audioObject);
+    playSong(this);
+  }
+});
+/**
+ * Plays or pause song
+ */
+$('.play-pause').on('click', function () {
+  const audioObject = currentAudio.get();
+  if ($(this).hasClass('fa-play-circle-o')) {
+    if (!$('.selected').hasClass('selected')) {
+      const firstSong = $('.list-group-item:first-child');
+      playSong(firstSong)
+      return;
+    }
     audioObject.play();
-    $(this).addClass('playing');
-    audioObject.addEventListener('ended', () => {
-      $(this).removeClass('playing');
-    });
-    audioObject.addEventListener('pause', () => {
-      $(this).removeClass('playing');
-    });
+  } else {
+    audioObject.pause();
+  }
+});
+/**
+ * Plays next song
+ */
+$('.fa-step-forward').on('click', () => {
+  const nextSong = $('.selected, .playing').next();
+  const audioObject = currentAudio.get();
+  audioObject.pause();
+  playSong(nextSong);
+})
+
+/**
+ * Plays previous song
+ */
+$('.fa-step-backward').on('click', () => {
+  const previousSong = $('.selected, .playing').prev();
+  const audioObject = currentAudio.get();
+  audioObject.pause();
+  playSong(previousSong);
+})
+
+/**
+ * Scroll listener to make audio bar stick to footer
+ * just before it collides
+ */
+$(window).scroll(() => {
+  let scrollBottom = $(document).height() - $(window).height() - $(window).scrollTop();
+  if (scrollBottom < 29) {
+    $('.audio-bar').addClass('scroll-spy-position');
+  } else {
+    $('.audio-bar').removeClass('scroll-spy-position');
   }
 });
