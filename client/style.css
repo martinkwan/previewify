@@ -14,6 +14,13 @@
     margin-top: 60px;
   }
 }
+/**
+ * Need to make body relative for scroll-spy to work
+ * Need to add to body only after landing page
+ */
+.make-relative {
+  position:relative;
+}
 
 body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
   font-family: "Helvetica Neue", Arial, sans-serif;
@@ -31,9 +38,27 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
   box-shadow: 10px 10px 15px 0px rgba(0,0,0,0.75);
 }
 
+.light-box-shadow {
+  -webkit-box-shadow: 0px 0px 13px 1px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 0px 13px 1px rgba(0,0,0,0.75);
+  box-shadow: 0px 0px 13px 1px rgba(0,0,0,0.75);
+}
+
 .fa:hover {
   cursor: pointer;
+}
 
+/**
+ * Class to prevent text from being selected
+ */
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Chrome/Safari/Opera */
+     -khtml-user-select: none; /* Konqueror */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  not supported by any browser */
 }
 
 /**
@@ -275,12 +300,22 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
   position:fixed;
   padding: 3px;
   text-align: center;
-  z-index:2;
-  bottom:30px;
+  z-index:1;
+  bottom:0px;
 }
 .audio-bar > span {
   color: white;
-  font-size: 25px;
+  font-size: 30px;
+  bottom:0;
+}
+
+.play-pause {
+  margin-right: 20px;
+  margin-left: 20px;
+}
+.scroll-spy-position {
+  bottom:-50px;
+  position: absolute;
 }
 
 
@@ -315,8 +350,9 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
   position: absolute;
   background: #1DB954;
   width: 100%;
-  margin-top: 10px;
+  margin-top: 50px;
   padding: 5px;
+  z-index: 2;
 }
 .footer-bar > span {
   color: white;

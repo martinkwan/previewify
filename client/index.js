@@ -19,8 +19,10 @@ function populateTemplate(obj, templateSelector) {
  * @param  {string} artistImg [url of artist image]
  */
 function adjustCss(artistImg) {
+  $('body').addClass('make-relative');
   $('.artist-profile-img').css('background-image', `url("${artistImg}")`);
   $('nav').removeClass('hide-this');
+  $('.audio-bar').removeClass('hide-this');
   $('.footer-bar').removeClass('footer-position');
   $('.related-artist-header').removeClass('hide-this');
   $('.album-list-outer').addClass('album-list-container');
@@ -229,27 +231,32 @@ const currentAudio = (function () {
 function playSong(context) {
   // Set up audioObject for song to be played
   const previewUrl = $(context).data('track-preview');
+  if (!previewUrl) {
+    $(context).addClass('list-group-item-danger has-danger');
+    // $(context).text()
+    return;
+  }
   const audioObject = new Audio(previewUrl);
   currentAudio.set(audioObject);
   audioObject.play();
   $(context).removeClass('selected');
   $(context).addClass('playing');
   audioObject.addEventListener('ended', () => {
-    $('.play-pause').addClass('fa-play-circle');
-    $('.play-pause').removeClass('fa-pause-circle');
+    $('.play-pause').addClass('fa-play');
+    $('.play-pause').removeClass('fa-pause');
     $(context).removeClass('playing');
     $(context).removeClass('selected');
     playSong($(context).next());
   });
   audioObject.addEventListener('pause', () => {
-    $('.play-pause').addClass('fa-play-circle');
-    $('.play-pause').removeClass('fa-pause-circle');
+    $('.play-pause').addClass('fa-play');
+    $('.play-pause').removeClass('fa-pause');
     $(context).removeClass('playing');
     $(context).addClass('selected');
   });
   audioObject.addEventListener('play', () => {
-    $('.play-pause').addClass('fa-pause-circle');
-    $('.play-pause').removeClass('fa-play-circle');
+    $('.play-pause').addClass('fa-pause');
+    $('.play-pause').removeClass('fa-play');
     $('.selected').removeClass('selected');
     $(context).addClass('playing');
   });
@@ -271,16 +278,20 @@ $('.track-list-placeholder').on('click', 'li', function () {
     playSong(this);
   }
 });
-
+/**
+ * Plays or pause song
+ */
 $('.play-pause').on('click', function () {
   const audioObject = currentAudio.get();
-  if ($(this).hasClass('fa-play-circle')) {
+  if ($(this).hasClass('fa-play')) {
     audioObject.play();
   } else {
     audioObject.pause();
   }
 });
-
+/**
+ * Plays next song
+ */
 $('.fa-step-forward').on('click', () => {
   const nextSong = $('.selected, .playing').next();
   const audioObject = currentAudio.get();
@@ -288,9 +299,25 @@ $('.fa-step-forward').on('click', () => {
   playSong(nextSong);
 })
 
+/**
+ * Plays previous song
+ */
 $('.fa-step-backward').on('click', () => {
   const previousSong = $('.selected, .playing').prev();
   const audioObject = currentAudio.get();
   audioObject.pause();
   playSong(previousSong);
 })
+
+/**
+ * Scroll listener to make audio bar stick to footer
+ * just before it collides
+ */
+$(window).scroll(() => {
+  let scrollBottom = $(document).height() - $(window).height() - $(window).scrollTop();
+  if (scrollBottom < 29) {
+    $('.audio-bar').addClass('scroll-spy-position');
+  } else {
+    $('.audio-bar').removeClass('scroll-spy-position');
+  }
+});
