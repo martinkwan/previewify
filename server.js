@@ -1,6 +1,5 @@
 /**
  * TO DO:
- * Fix duplicate album bug
  *
  */
 const express = require('express');
@@ -14,31 +13,11 @@ app.use(express.static(path.join(__dirname, '/client')));
 
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, '/client/index.html')));
 
-// app.get('*', (req, res) => {
-//   const route = req.url.split('?')[0];
-//   let url;
-//   if (route === '/artist') {
-//     url = `https://api.spotify.com/v1/search?query=${req.query.artist}&type=artist`;
-//   } else if (route === '/tracks') {
-//     url = `https://api.spotify.com/v1/artists/${req.query.artistId}/top-tracks?country=US`;
-//   } else if (route === '/albums') {
-//     url = `https://api.spotify.com/v1/artists/${req.query.artistId}/albums?country=US`;
-//   } else if (route === '/albumTracks') {
-//     url = `https://api.spotify.com/v1/albums/${req.query.albumId}/tracks`;
-//   } else {
-//     console.error();
-//     res.end('Not a valid route!');
-//   }
-//   request(url, (error, response, body) => {
-//     if (!error && response.statusCode === 200) {
-//       res.end(body);
-//     } else {
-//       console.error();
-//       res.end('error');
-//     }
-//   });
-// });
-
+/**
+ * Function to return data from spotify API
+ * @param  {string} url [url of spotify api endpoint]
+ * @param  {object} res [response from api endpoint]
+ */
 function getData(url, res) {
   request(url, (error, response, body) => {
     if (!error && response.statusCode === 200) {
@@ -70,7 +49,7 @@ app.get('/tracks', (req, res) => {
  * Route to get artist's albums
  */
 app.get('/albums', (req, res) => {
-  const url = `https://api.spotify.com/v1/artists/${req.query.artistId}/albums?market=US`;
+  const url = `https://api.spotify.com/v1/search?query=${req.query.artistName}&type=album&market=US&limit=50`;
   getData(url, res);
 });
 
@@ -79,6 +58,14 @@ app.get('/albums', (req, res) => {
  */
 app.get('/albumTracks', (req, res) => {
   const url = `https://api.spotify.com/v1/albums/${req.query.albumId}/tracks`;
+  getData(url, res);
+});
+
+/**
+ * Route to get related artists
+ */
+app.get('/relatedArtists', (req, res) => {
+  const url = `https://api.spotify.com/v1/artists/${req.query.artistId}/related-artists`;
   getData(url, res);
 });
 
