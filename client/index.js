@@ -284,6 +284,11 @@ $('.track-list-placeholder').on('click', 'li', function () {
 $('.play-pause').on('click', function () {
   const audioObject = currentAudio.get();
   if ($(this).hasClass('fa-play')) {
+    if (!$('.selected').hasClass('selected')) {
+      const firstSong = $('.list-group-item:first-child');
+      playSong(firstSong)
+      return;
+    }
     audioObject.play();
   } else {
     audioObject.pause();

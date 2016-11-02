@@ -56,9 +56,9 @@
 
     <footer class="audio-bar light-box-shadow hide-this">
       <span>
-        <i class="noselect fa fa-step-backward"></i>
-        <i class="noselect fa fa-play play-pause"></i>
-        <i class="noselect fa fa-step-forward"></i>
+        <i class="noselect fa fa-step-backward hvr-grow"></i>
+        <i class="noselect fa fa-play play-pause hvr-grow"></i>
+        <i class="noselect fa fa-step-forward hvr-grow"></i>
       </span>
     </footer>
 
@@ -96,7 +96,7 @@
     <script id="track-list-template" type="text/x-handlebars-template">
       <h3 class="album-name">{{albumName}}</h3>
       <div class = "track-list">
-        <ol class="list-group">
+        <ol class="list-group track-list-ol">
           {{#each trackList}}
             <li class="list-group-item" data-track-preview={{this.trackPreview}}>{{this.trackName}}</li>
           {{/each}}
@@ -107,11 +107,11 @@
     <!-- Album art list -->
     <script id="album-list-template" type="text/x-handlebars-template">
       <span class="album-list-cell">
-        <img src=trendingUp.png alt="popular songs" class = "album-image box-shadow popular-album-image" data-album-id="popularSongs" data-album-name="Popular" data-artist-id={{artistId}} />
+        <img src=trendingUp.png alt="popular songs" class = "album-image hvr-bob box-shadow popular-album-image" data-album-id="popularSongs" data-album-name="Popular" data-artist-id={{artistId}} />
       </span>
       {{#each albumObj}}
       <span class="album-list-cell">
-        <img src={{this.albumImg}} alt="album image" class="album-image box-shadow" data-album-id={{this.albumId}} data-album-name={{this.albumName}} />
+        <img src={{this.albumImg}} alt="album image" class="album-image hvr-bob box-shadow" data-album-id={{this.albumId}} data-album-name={{this.albumName}} />
       </span>
       {{/each}}
     </script>
@@ -120,7 +120,7 @@
     <script id="related-artists-template" type="text/x-handlebars-template">
       {{#each relatedArtists}}
       <span class="artist-list-cell">
-        <span class="card box-shadow">
+        <span class="card box-shadow hvr-bob">
             <div class="related-artist-img" style={{this.artistImg}} alt="Card image cap"> </div>
             <div class="card-block">
               <p class="card-text">{{this.artistName}}</p>
