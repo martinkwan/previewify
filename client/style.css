@@ -31,6 +31,11 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
   box-shadow: 10px 10px 15px 0px rgba(0,0,0,0.75);
 }
 
+.fa:hover {
+  cursor: pointer;
+
+}
+
 /**
  * =========================================
  * Nav Bar
@@ -127,6 +132,9 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
 
 .playing {
   border: 4px solid #1DB954;
+}
+.selected {
+  border: 2px solid #1DB954;
 }
 .list-group-item:hover {
   cursor: pointer;
@@ -257,6 +265,27 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
 
 /**
  * =========================================
+ * Audio bar
+ * =========================================
+ */
+
+.audio-bar{
+  width:100%;
+  background: #1DB954;
+  position:fixed;
+  padding: 3px;
+  text-align: center;
+  z-index:2;
+  bottom:30px;
+}
+.audio-bar > span {
+  color: white;
+  font-size: 25px;
+}
+
+
+/**
+ * =========================================
  * Landing Page
  * =========================================
  */
@@ -282,14 +311,14 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
  * =========================================
  */
 
-footer {
+.footer-bar {
   position: absolute;
   background: #1DB954;
   width: 100%;
   margin-top: 10px;
   padding: 5px;
 }
-footer > span {
+.footer-bar > span {
   color: white;
   font-size: 15px;
 }

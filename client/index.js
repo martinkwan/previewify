@@ -21,7 +21,7 @@ function populateTemplate(obj, templateSelector) {
 function adjustCss(artistImg) {
   $('.artist-profile-img').css('background-image', `url("${artistImg}")`);
   $('nav').removeClass('hide-this');
-  $('footer').removeClass('footer-position');
+  $('.footer-bar').removeClass('footer-position');
   $('.related-artist-header').removeClass('hide-this');
   $('.album-list-outer').addClass('album-list-container');
 }
@@ -222,10 +222,44 @@ const currentAudio = (function () {
 }());
 
 /**
+ * Play song at context DOM element,
+ * Recursively play next song
+ * @param  {keyword} context [dom element to play song]
+ */
+function playSong(context) {
+  // Set up audioObject for song to be played
+  const previewUrl = $(context).data('track-preview');
+  const audioObject = new Audio(previewUrl);
+  currentAudio.set(audioObject);
+  audioObject.play();
+  $(context).removeClass('selected');
+  $(context).addClass('playing');
+  audioObject.addEventListener('ended', () => {
+    $('.play-pause').addClass('fa-play-circle');
+    $('.play-pause').removeClass('fa-pause-circle');
+    $(context).removeClass('playing');
+    $(context).removeClass('selected');
+    playSong($(context).next());
+  });
+  audioObject.addEventListener('pause', () => {
+    $('.play-pause').addClass('fa-play-circle');
+    $('.play-pause').removeClass('fa-pause-circle');
+    $(context).removeClass('playing');
+    $(context).addClass('selected');
+  });
+  audioObject.addEventListener('play', () => {
+    $('.play-pause').addClass('fa-pause-circle');
+    $('.play-pause').removeClass('fa-play-circle');
+    $('.selected').removeClass('selected');
+    $(context).addClass('playing');
+  });
+}
+
+/**
  * Plays song when clicked
  */
 $('.track-list-placeholder').on('click', 'li', function () {
-  let audioObject = currentAudio.get();
+  const audioObject = currentAudio.get();
   // If this song is playing, pause it
   if ($(this).hasClass('playing')) {
     audioObject.pause();
@@ -237,23 +271,26 @@ $('.track-list-placeholder').on('click', 'li', function () {
     playSong(this);
   }
 });
-/**
- * Play song at context DOM element,
- * Recursively play next song
- * @param  {keyword} context [dom element to play song]
- */
-function playSong(context) {
-  // Set up audioObject for song to be played
-  const previewUrl = $(context).data('track-preview');
-  const audioObject = new Audio(previewUrl);
-  currentAudio.set(audioObject);
-  audioObject.play();
-  $(context).addClass('playing');
-  audioObject.addEventListener('ended', () => {
-    $(context).removeClass('playing');
-    playSong($(context).next());
-  });
-  audioObject.addEventListener('pause', () => {
-    $(context).removeClass('playing');
-  });
-}
+
+$('.play-pause').on('click', function () {
+  const audioObject = currentAudio.get();
+  if ($(this).hasClass('fa-play-circle')) {
+    audioObject.play();
+  } else {
+    audioObject.pause();
+  }
+});
+
+$('.fa-step-forward').on('click', () => {
+  const nextSong = $('.selected, .playing').next();
+  const audioObject = currentAudio.get();
+  audioObject.pause();
+  playSong(nextSong);
+})
+
+$('.fa-step-backward').on('click', () => {
+  const previousSong = $('.selected, .playing').prev();
+  const audioObject = currentAudio.get();
+  audioObject.pause();
+  playSong(previousSong);
+})
