@@ -15,26 +15,26 @@
      =============================================================== -->
 
     <!-- Nav bar -->
-    <nav class="navbar navbar-light">
+    <nav class="navbar hide-this">
       <form class="form-inline float-sm-right search-form has-success">
         <input class="form-control" type="text" placeholder="Search">
         <button class="btn btn-outline-success submit-button" type="submit">Search</button>
       </form>
     </nav>
 
-    <!-- Landing page, overwritten after first artist search -->
     <div class="cover-art-background">
     </div>
 
     <!-- container holding artist profile, tracklist and album list -->
     <div class = "container">
       <div class="artist-profile-placeholder">
+        <!-- Landing page, overwritten after first artist search -->
         <div class="row center-children landing-page">
           <h1 class="landing-page-title">Search for artists</h1>
           <form class="search-form center-children has-success">
             <div>
-              <input class="form-control landing-page-search" type="text" placeholder="Search">
-              <button class="btn btn-outline-success" type="submit">Search</button>
+              <input class="form-control landing-page-search" type="text" placeholder="Search for an artist">
+              <button class="btn btn-outline-success submit-button" type="submit">Search</button>
             </div>
           </form>
         </div>
@@ -81,7 +81,7 @@
       <h3 class="album-name">{{albumName}}</h3>
       <ol class="list-group">
         {{#each trackList}}
-          <li class="list-group-item">{{this}}</li>
+          <li class="list-group-item" data-track-preview={{this.trackPreview}}>{{this.trackName}}</li>
         {{/each}}
       </ol>
     </script>
