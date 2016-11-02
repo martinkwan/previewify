@@ -1,7 +1,6 @@
 /**
  * TO DO:
  * display mini album art next to list?
- * Footer
  * x to clear search box
  * cuco sanchez -> error loading
  */
@@ -134,7 +133,6 @@ function getRelatedArtists(artistId) {
   });
 }
 
-
 /**
  * Adds bootstrap classes depending if artist search was success or fail
  * @param  {keyword} context [keyword 'this' passed in]
@@ -158,16 +156,16 @@ function formValidation(context, success) {
  * Completes all the api requests to load a new artist page
  * @param  {string} artist [artist name]
  */
-function loadNewArtist(artist) {
+function loadNewArtist(artist, context) {
   new Promise((resolve, reject) => {
     getArtist(artist, resolve, reject);
   }).then((artistObj) => {
-    formValidation(this, true);
+    formValidation(context, true);
     getTracks(artistObj.artistId);
     getAlbums(artistObj.artistName, artistObj.artistId);
     getRelatedArtists(artistObj.artistId);
   }).catch(() => {
-    formValidation(this, false);
+    formValidation(context, false);
   });
 }
 
@@ -178,12 +176,12 @@ function loadNewArtist(artist) {
 $('.search-form').submit(function (event) {
   event.preventDefault();
   const artist = $(this).find('input').val();
-  loadNewArtist(artist);
+  loadNewArtist(artist, this);
 });
 
 $('.related-artists-placeholder').on('click', 'span', function () {
   const artist = $(this).find('.card-text').text();
-  loadNewArtist(artist);
+  loadNewArtist(artist, this);
 })
 
 
@@ -224,7 +222,7 @@ const currentAudio = (function () {
 $('.track-list-placeholder').on('click', 'li', function () {
   let audioObject = currentAudio.get();
   // If this song is playing, pause it
-  if ($(this).hasClass('playing')){
+  if ($(this).hasClass('playing')) {
     audioObject.pause();
   } else {
     // If there is currently an audio object, pause it
