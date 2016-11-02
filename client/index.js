@@ -1,11 +1,4 @@
 /**
- * TO DO:
- * display mini album art next to list?
- * x to clear search box
- * cuco sanchez -> error loading
- */
-
-/**
  * Handlebar template function
  * Grabs template script
  * Then compiles template
@@ -20,6 +13,19 @@ function populateTemplate(obj, templateSelector) {
   const theCompiledHtml = theTemplate(obj);
   $(`.${templateSelector}-placeholder`).html(theCompiledHtml);
 }
+
+/**
+ * Add and remove classes to render artist profile page correctly
+ * @param  {string} artistImg [url of artist image]
+ */
+function adjustCss(artistImg) {
+  $('.artist-profile-img').css('background-image', `url("${artistImg}")`);
+  $('nav').removeClass('hide-this');
+  $('footer').removeClass('footer-position');
+  $('.related-artist-header').removeClass('hide-this');
+  $('.album-list-outer').addClass('album-list-container');
+}
+
 
 /**
  * Make a GET request to server to spotify api to grab artist information
@@ -38,8 +44,7 @@ function getArtist(artist, resolve, reject) {
         artistId: artistObj.id,
       };
       populateTemplate(artistObj, 'artist-profile');
-      $('.artist-profile-img').css('background-image', `url("${artistObj.artistImg}")`);
-      $('nav').removeClass('hide-this');
+      adjustCss(artistObj.artistImg);
       resolve(artistObj);
     } else {
       reject();
