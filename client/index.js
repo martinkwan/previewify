@@ -206,7 +206,7 @@ $('.album-list-placeholder').on('click', 'img', function () {
 
 /**
  * Self invoking function sets up storage for audioObject so it doesn't need to be a global variable
- * @return {Object}          [set and get methods to keep _audioObject as non-global variable]
+ * @return {Object} [set and get methods to keep _audioObject as non-global variable]
  */
 const currentAudio = (function () {
   let _audioObject = null;
@@ -222,8 +222,6 @@ const currentAudio = (function () {
  * Plays song when clicked
  */
 $('.track-list-placeholder').on('click', 'li', function () {
-  $('.active-song').removeClass('active-song');
-  $(this).addClass('active-song');
   let audioObject = currentAudio.get();
   // If this song is playing, pause it
   if ($(this).hasClass('playing')){
