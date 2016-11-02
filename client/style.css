@@ -234,7 +234,9 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
 .artist-image {
  width: 118px;
 }
-
+.card {
+  margin-bottom: 30px;
+}
 .card-text {
   font-size: 12px;
   text-align: center;
@@ -245,6 +247,12 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
 
 .related-artist-header {
   margin: 30px 0;
+}
+
+@media (max-width: 480px){
+  .related-artist-header {
+    font-size: 18px;
+  }
 }
 
 /**
@@ -278,7 +286,7 @@ footer {
   position: absolute;
   background: #1DB954;
   width: 100%;
-  margin-top: 30px;
+  margin-top: 10px;
 }
 footer > span {
   color: white;
