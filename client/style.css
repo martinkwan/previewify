@@ -294,6 +294,12 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
   }
 }
 
+.related-artist-container {
+  padding-top: 30px;
+  background-color:#F7F7F7;
+  width:100%;
+}
+
 /**
  * =========================================
  * Audio bar
@@ -318,10 +324,10 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
 .play-pause {
   margin-right: 20px;
   margin-left: 20px;
-  font-size: 34px;
+  font-size: 50px;
 }
 .scroll-spy-position {
-  bottom:-50px;
+  bottom:-62px;
   position: absolute;
 }
 
@@ -357,7 +363,7 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
   position: absolute;
   background: #1DB954;
   width: 100%;
-  margin-top: 50px;
+  margin-top: 60px;
   padding: 5px;
   z-index: 2;
 }

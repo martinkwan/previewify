@@ -22,6 +22,7 @@ function adjustCss(artistImg) {
   $('body').addClass('make-relative');
   $('.artist-profile-img').css('background-image', `url("${artistImg}")`);
   $('nav').removeClass('hide-this');
+  $('.related-artist-container').removeClass('hide-this');
   $('.audio-bar').removeClass('hide-this');
   $('.footer-bar').removeClass('footer-position');
   $('.related-artist-header').removeClass('hide-this');
@@ -191,7 +192,6 @@ $('.related-artists-placeholder').on('click', 'span', function () {
   loadNewArtist(artist, this);
 })
 
-
 /**
  * Changes tracklist when an album art is clicked
  * Cannot be an arrow function because of the 'this' binding
@@ -242,21 +242,21 @@ function playSong(context) {
   $(context).removeClass('selected');
   $(context).addClass('playing');
   audioObject.addEventListener('ended', () => {
-    $('.play-pause').addClass('fa-play');
-    $('.play-pause').removeClass('fa-pause');
+    $('.play-pause').addClass('fa-play-circle-o');
+    $('.play-pause').removeClass('fa-pause-circle-o');
     $(context).removeClass('playing');
     $(context).removeClass('selected');
     playSong($(context).next());
   });
   audioObject.addEventListener('pause', () => {
-    $('.play-pause').addClass('fa-play');
-    $('.play-pause').removeClass('fa-pause');
+    $('.play-pause').addClass('fa-play-circle-o');
+    $('.play-pause').removeClass('fa-pause-circle-o');
     $(context).removeClass('playing');
     $(context).addClass('selected');
   });
   audioObject.addEventListener('play', () => {
-    $('.play-pause').addClass('fa-pause');
-    $('.play-pause').removeClass('fa-play');
+    $('.play-pause').addClass('fa-pause-circle-o');
+    $('.play-pause').removeClass('fa-play-circle-o');
     $('.selected').removeClass('selected');
     $(context).addClass('playing');
   });
@@ -283,7 +283,7 @@ $('.track-list-placeholder').on('click', 'li', function () {
  */
 $('.play-pause').on('click', function () {
   const audioObject = currentAudio.get();
-  if ($(this).hasClass('fa-play')) {
+  if ($(this).hasClass('fa-play-circle-o')) {
     if (!$('.selected').hasClass('selected')) {
       const firstSong = $('.list-group-item:first-child');
       playSong(firstSong)
