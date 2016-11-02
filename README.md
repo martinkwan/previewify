@@ -12,6 +12,6 @@
 
 - Enter an artist name in the search bar and press enter or click search
 - Click on the song you wish to preview
-- Browse through albums by scrolling vertically if on desktop, scroll horizontally on mobile
-- Browse through related artists by scrolling horizontally
+- Browse through albums by scrolling through it vertically if on desktop, scroll through it horizontally on mobile
+- Browse through related artists by scrolling it horizontally
 - Control audio with the audio bar that is fixed to the bottom of window
