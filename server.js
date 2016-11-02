@@ -61,4 +61,12 @@ app.get('/albumTracks', (req, res) => {
   getData(url, res);
 });
 
+/**
+ * Route to get related artists
+ */
+app.get('/relatedArtists', (req, res) => {
+  const url = `https://api.spotify.com/v1/artists/${req.query.artistId}/related-artists`;
+  getData(url, res);
+});
+
 app.listen(port, () => console.log(`App is listening on port ${port}!`));

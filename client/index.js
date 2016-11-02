@@ -3,7 +3,7 @@
  * display mini album art next to list?
  * Footer
  * x to clear search box
- * 30 second song preview
+ * cuco sanchez -> error loading
  */
 
 /**
@@ -121,6 +121,21 @@ function getAlbumTracks(albumId, albumName) {
 }
 
 /**
+ * Make a GET request to server to spotify api to grab related artists
+ * Then render tracklist using handlebars.js template
+ * @param  {string} artistId              [id of artist]
+ */
+function getRelatedArtists(artistId) {
+  $.get('/relatedArtists', { artistId }, (artistResults) => {
+    const relatedArtists = JSON.parse(artistResults).artists.map((artist) => {
+      return { artistName: artist.name, artistImg: `background-image:url(${artist.images[1].url})` };
+    });
+    populateTemplate({ relatedArtists }, 'related-artists');
+  });
+}
+
+
+/**
  * Adds bootstrap classes depending if artist search was success or fail
  * @param  {keyword} context [keyword 'this' passed in]
  * @param  {boolean} success [if artist search was success or failure]
@@ -140,22 +155,36 @@ function formValidation(context, success) {
 }
 
 /**
-* On submit form, get data from spotify API and render to page using handlebar templates
-* Cannot be an arrow function because of the 'this' binding
-*/
-$('.search-form').submit(function (event) {
-  event.preventDefault();
-  const artist = $(this).find('input').val();
+ * Completes all the api requests to load a new artist page
+ * @param  {string} artist [artist name]
+ */
+function loadNewArtist(artist) {
   new Promise((resolve, reject) => {
     getArtist(artist, resolve, reject);
   }).then((artistObj) => {
     formValidation(this, true);
     getTracks(artistObj.artistId);
     getAlbums(artistObj.artistName, artistObj.artistId);
+    getRelatedArtists(artistObj.artistId);
   }).catch(() => {
     formValidation(this, false);
   });
+}
+
+/**
+* On submit form, get data from spotify API and render to page using handlebar templates
+* Cannot be an arrow function because of the 'this' binding
+*/
+$('.search-form').submit(function (event) {
+  event.preventDefault();
+  const artist = $(this).find('input').val();
+  loadNewArtist(artist);
 });
+
+$('.related-artists-placeholder').on('click', 'span', function () {
+  const artist = $(this).find('.card-text').text();
+  loadNewArtist(artist);
+})
 
 
 /**
@@ -189,6 +218,9 @@ const currentAudio = (function () {
   };
 }());
 
+/**
+ * Plays song when clicked
+ */
 $('.track-list-placeholder').on('click', 'li', function () {
   $('.active-song').removeClass('active-song');
   $(this).addClass('active-song');
