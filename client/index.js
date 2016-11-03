@@ -37,15 +37,16 @@ function adjustCss(artistImg) {
  * @param  {string} artist  [artist name from input value]
  * @param  {function} resolve [resolves promise and sends artistObj to then()]
  */
-function getArtist(rawArtist, resolve, reject, context) {
+function getArtist(rawArtist, resolve, reject) {
   // Replace accented letters with normal letters in order for search to properly work
   const artist = latinize(rawArtist);
   $.get('/artist', { artist }, (artistResults) => {
     // Error handling, if no artist results, make context element red
     if(artistResults === 'error') {
-      $(context).addClass('list-group-item-danger has-danger');
+      console.log('ERROR in getArtist function, not getting data from api')
       return;
     }
+    // Scroll to top of page if no errors
     $('html, body').animate({ scrollTop: 0 }, 'fast');
     let artistObj = JSON.parse(artistResults).artists.items[0];
     if (artistObj) {
@@ -100,13 +101,24 @@ function displayCoverArt(coverArtUrls) {
  * @param  {string} rawArtistName [name of artist]
  * @param  {string} artistId   [id of artist]
  */
-function getAlbums(rawArtistName, artistId) {
+function getAlbums(rawArtistName, artistId, firstTry) {
   // Replace accented letters with normal letters in order for search to properly work
   const artistName = latinize(rawArtistName);
-  $.get('/albums', { artistName }, (albumResults) => {
+  $.get('/albums', { artistName, artistId, firstTry }, (albumResults) => {
+    // If API request fails the first try, try a second try with a different route
+    if (albumResults === 'error' && firstTry) {
+      getAlbums(rawArtistName, artistId, false);
+      return;
+      // If API request fails the second try, log an error message
+    } else if (albumResults === 'error') {
+      console.log('Error getting albums')
+      return;
+    }
     const coverArtUrls = [];
     const albumObj = [];
-    JSON.parse(albumResults).albums.items.forEach((album) => {
+    const arrayOfAlbums = firstTry ? JSON.parse(albumResults).albums.items
+                                   : JSON.parse(albumResults).items;
+    arrayOfAlbums.forEach((album) => {
       // If there is no albumImgUrl, assign a default imgUrl
       const albumImg = album.images.length > 1 ? album.images[1].url : 'https://i.scdn.co/image/907e87639091f8805c48681d9e7f144dedf53741';
       coverArtUrls.push(`url('${albumImg}')`);
@@ -174,11 +186,11 @@ function formValidation(context, success) {
  */
 function loadNewArtist(artist, context) {
   new Promise((resolve, reject) => {
-    getArtist(artist, resolve, reject, context);
+    getArtist(artist, resolve, reject);
   }).then((artistObj) => {
     formValidation(context, true);
     getTracks(artistObj.artistId);
-    getAlbums(artistObj.artistName, artistObj.artistId);
+    getAlbums(artistObj.artistName, artistObj.artistId, true);
     getRelatedArtists(artistObj.artistId);
   }).catch(() => {
     formValidation(context, false);
@@ -196,7 +208,7 @@ $('.search-form').submit(function (event) {
   loadNewArtist(artist, this);
 });
 
-$('.related-artists-placeholder').on('click', 'span', function () {
+$('.related-artists-placeholder').on('click', '.card', function () {
   const artist = $(this).find('.card-text').text();
   loadNewArtist(artist, this);
 })

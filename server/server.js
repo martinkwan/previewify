@@ -47,10 +47,12 @@ app.get('/tracks', (req, res) => {
 
 /**
  * Route to get artist's albums
- * Uses artistName instead of artistId because of better album results
+ * First it uses artistName instead of artistId because of better album results (no duplicates)
+ * It only uses artistId when using artistName returns an error (mainly for foreign languages)
  */
 app.get('/albums', (req, res) => {
-  const url = `https://api.spotify.com/v1/search?query=${req.query.artistName}&type=album&market=US&limit=50`;
+  const url = req.query.firstTry === 'true' ? `https://api.spotify.com/v1/search?query=${req.query.artistName}&type=album&market=US&limit=50`
+                                            : `https://api.spotify.com/v1/artists/${req.query.artistId}/albums?market=US&album_type=album`;
   getData(url, res);
 });
 
