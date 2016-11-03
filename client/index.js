@@ -189,6 +189,7 @@ $('.search-form').submit(function (event) {
 });
 
 $('.related-artists-placeholder').on('click', 'span', function () {
+  $('html, body').animate({ scrollTop: 0 }, 'fast');
   const artist = $(this).find('.card-text').text();
   loadNewArtist(artist, this);
 })

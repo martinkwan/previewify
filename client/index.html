@@ -109,11 +109,11 @@
 
     <!-- Album art list -->
     <script id="album-list-template" type="text/x-handlebars-template">
-      <span class="album-list-cell" readonly="true">
+      <span class="album-list-cell" >
         <img src=trendingUp.png alt="popular songs" class = "album-image hvr-bob box-shadow popular-album-image" data-album-id="popularSongs" data-album-name="Popular" data-artist-id={{artistId}} />
       </span>
       {{#each albumObj}}
-      <span class="album-list-cell" readonly="true">
+      <span class="album-list-cell" >
         <img src={{this.albumImg}} alt="album image" class="album-image hvr-bob box-shadow" data-album-id={{this.albumId}} data-album-name={{this.albumName}} />
       </span>
       {{/each}}
@@ -122,7 +122,7 @@
     <!-- Related artists list -->
     <script id="related-artists-template" type="text/x-handlebars-template">
       {{#each relatedArtists}}
-      <span class="artist-list-cell" readonly="true">
+      <span class="artist-list-cell" >
         <span class="card box-shadow hvr-bob">
             <div class="related-artist-img" style={{this.artistImg}} alt="Card image cap"> </div>
             <div class="card-block">
