@@ -158,7 +158,6 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
 .playing {
   background-color: #1DB954;
   color:white;
-  /*border: 4px solid #1DB954;*/
 }
 .selected {
   border: 4px solid #1DB954;
