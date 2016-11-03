@@ -1,7 +1,3 @@
-/**
- * TO DO:
- *
- */
 const express = require('express');
 const path = require('path');
 const request = require('request');
@@ -23,7 +19,7 @@ function getData(url, res) {
     if (!error && response.statusCode === 200) {
       res.end(body);
     } else {
-      console.error();
+      console.log('API is returning an error, or status code is not 200');
       res.end('error');
     }
   });
@@ -31,7 +27,9 @@ function getData(url, res) {
 
 /**
  * Route to get artist information
- * Working on making two routes
+ * For search form submissions, use artist name as a parameter
+ * For related artist onclick events,
+ * use artist ID as a parameter (to properly load foreign artists)
  */
 app.get('/artist', (req, res) => {
   const url = req.query.artistId === 'none' ? `https://api.spotify.com/v1/search?query=${req.query.artist}&type=artist`

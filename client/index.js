@@ -29,25 +29,29 @@ function adjustCss(artistImg) {
   $('.album-list-outer').addClass('album-list-container');
 }
 
-
 /**
  * Make a GET request to server to spotify api to grab artist information
  * Then render artist info using handlebars.js template
  * Then send artistObj to next step in promise
  * @param  {string} rawArtist  [artist name from input value]
  * @param  {function} resolve [resolves promise and sends artistObj to then()]
+ * @param  {function} reject  [rejects promoise]
+ * @param  {string}   artistId [artistId of artist if triggered from clicking on related artist
+ *                             , otherwise artistId is 'none' if getArtist is invoked by search]
  */
 function getArtist(rawArtist, resolve, reject, artistId) {
   // Replace accented letters with normal letters in order for search to properly work
   const artist = latinize(rawArtist);
   $.get('/artist', { artist, artistId }, (artistResults) => {
     // Error handling, if no artist results, early return
-    if( artistResults === 'error') {
+    if (artistResults === 'error') {
       console.log('ERROR in getArtist function, not getting data from api');
+      reject();
       return;
     }
     // Scroll to top of page if no errors
     $('html, body').animate({ scrollTop: 0 }, 'fast');
+    // artistResults is in different format depending on route
     const parsedArtistObj = artistId === 'none' ? JSON.parse(artistResults).artists.items[0]
                                                 : JSON.parse(artistResults);
     if (parsedArtistObj) {
@@ -101,6 +105,7 @@ function displayCoverArt(coverArtUrls) {
  * Then render album list using handlebars.js template
  * @param  {string} rawArtistName [name of artist]
  * @param  {string} artistId   [id of artist]
+ * @param  {boolean} firstTry  [boolean for whether it is first attempt to grab album data]
  */
 function getAlbums(rawArtistName, artistId, firstTry = true) {
   // Replace accented letters with normal letters in order for search to properly work
@@ -112,14 +117,15 @@ function getAlbums(rawArtistName, artistId, firstTry = true) {
       return;
       // If API request fails the second try, log an error message
     } else if (albumResults === 'error') {
-      console.log('Error getting albums')
+      console.log('Error getting albums');
       return;
     }
     const coverArtUrls = [];
     const albumObj = [];
-    const arrayOfAlbums = firstTry ? JSON.parse(albumResults).albums.items
-                                   : JSON.parse(albumResults).items;
-    arrayOfAlbums.forEach((album) => {
+    // albumResults is in different format depending on route
+    const parsedAlbumResults = firstTry ? JSON.parse(albumResults).albums.items
+                                        : JSON.parse(albumResults).items;
+    parsedAlbumResults.forEach((album) => {
       // If there is no albumImgUrl, assign a default imgUrl
       const albumImg = album.images.length > 1 ? album.images[1].url : 'https://i.scdn.co/image/907e87639091f8805c48681d9e7f144dedf53741';
       coverArtUrls.push(`url('${albumImg}')`);
@@ -185,6 +191,7 @@ function formValidation(context, success) {
  * Completes all the api requests to load a new artist page
  * @param  {string} artist [artist name]
  * @param  {keyword} context [dom element the load new artist was triggered at]
+ * @param  {string} artistId [artist Id, is 'none' if function is ran from search input]
  */
 function loadNewArtist(artist, context, artistId = 'none') {
   new Promise((resolve, reject) => {
@@ -210,11 +217,15 @@ $('.search-form').submit(function (event) {
   loadNewArtist(artist, this);
 });
 
+/**
+ * When related artist card is clicked, load new artist with its artist ID
+ * Cannot be an arrow function because of the 'this' binding
+ */
 $('.related-artists-placeholder').on('click', '.card', function () {
   const artist = $(this).find('.card-text').text();
   const artistId = $(this).find('.card-text').data('artist-id');
   loadNewArtist(artist, this, artistId);
-})
+});
 
 /**
  * Changes tracklist when an album art is clicked
@@ -290,6 +301,7 @@ function playSong(context) {
 
 /**
  * Plays song when clicked
+ * Cannot be an arrow function because of the 'this' binding
  */
 $('.track-list-placeholder').on('click', 'li', function () {
   const audioObject = currentAudio.get();
@@ -307,6 +319,7 @@ $('.track-list-placeholder').on('click', 'li', function () {
 /**
  * Plays or pause song
  * If no song is currently selected, play first song on album
+ * Cannot be an arrow function because of the 'this' binding
  */
 $('.play-pause').on('click', function () {
   const audioObject = currentAudio.get();
@@ -346,7 +359,7 @@ $('.fa-step-backward').on('click', () => {
  * just before it collides
  */
 $(window).scroll(() => {
-  let scrollBottom = $(document).height() - $(window).height() - $(window).scrollTop();
+  const scrollBottom = $(document).height() - $(window).height() - $(window).scrollTop();
   if (scrollBottom < 29) {
     $('.audio-bar').addClass('scroll-spy-position');
   } else {
