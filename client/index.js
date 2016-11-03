@@ -183,7 +183,7 @@ function loadNewArtist(artist, context) {
 */
 $('.search-form').submit(function (event) {
   event.preventDefault();
-  $(this).blur();
+  $(this).find('input').blur();
   const artist = $(this).find('input').val();
   loadNewArtist(artist, this);
 });
