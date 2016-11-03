@@ -1,16 +1,16 @@
 /**
  * Handlebar template function
- * Grabs template script
- * Then compiles template
- * Then passes data to template
- * Then adds compiled html to the page
  * @param  {object} obj              [object of data to render]
  * @param  {string} templateSelector [DOM location to select template and to render to]
  */
 function populateTemplate(obj, templateSelector) {
+  // Grabs template script
   const theTemplateScript = $(`#${templateSelector}-template`).html();
+  // Then compiles template
   const theTemplate = Handlebars.compile(theTemplateScript);
+  // Then passes data to template
   const theCompiledHtml = theTemplate(obj);
+  // Then adds compiled html to the page
   $(`.${templateSelector}-placeholder`).html(theCompiledHtml);
 }
 
@@ -34,21 +34,22 @@ function adjustCss(artistImg) {
  * Make a GET request to server to spotify api to grab artist information
  * Then render artist info using handlebars.js template
  * Then send artistObj to next step in promise
- * @param  {string} artist  [artist name from input value]
+ * @param  {string} rawArtist  [artist name from input value]
  * @param  {function} resolve [resolves promise and sends artistObj to then()]
  */
-function getArtist(rawArtist, resolve, reject) {
+function getArtist(rawArtist, resolve, reject, artistId) {
   // Replace accented letters with normal letters in order for search to properly work
   const artist = latinize(rawArtist);
-  $.get('/artist', { artist }, (artistResults) => {
-    // Error handling, if no artist results, make context element red
-    if(artistResults === 'error') {
-      console.log('ERROR in getArtist function, not getting data from api')
+  $.get('/artist', { artist, artistId }, (artistResults) => {
+    // Error handling, if no artist results, early return
+    if( artistResults === 'error') {
+      console.log('ERROR in getArtist function, not getting data from api');
       return;
     }
     // Scroll to top of page if no errors
     $('html, body').animate({ scrollTop: 0 }, 'fast');
-    const parsedArtistObj = JSON.parse(artistResults).artists.items[0];
+    const parsedArtistObj = artistId === 'none' ? JSON.parse(artistResults).artists.items[0]
+                                                : JSON.parse(artistResults);
     if (parsedArtistObj) {
       const artistObj = {};
       // If there is no artist image, assign it a default artist image
@@ -101,7 +102,7 @@ function displayCoverArt(coverArtUrls) {
  * @param  {string} rawArtistName [name of artist]
  * @param  {string} artistId   [id of artist]
  */
-function getAlbums(rawArtistName, artistId, firstTry) {
+function getAlbums(rawArtistName, artistId, firstTry = true) {
   // Replace accented letters with normal letters in order for search to properly work
   const artistName = latinize(rawArtistName);
   $.get('/albums', { artistName, artistId, firstTry }, (albumResults) => {
@@ -155,7 +156,7 @@ function getAlbumTracks(albumId, albumName) {
 function getRelatedArtists(artistId) {
   $.get('/relatedArtists', { artistId }, (artistResults) => {
     const relatedArtists = JSON.parse(artistResults).artists.map((artist) => {
-      return { artistName: artist.name, artistImg: `background-image:url(${artist.images[1].url})` };
+      return { artistId: artist.id, artistName: artist.name, artistImg: `background-image:url(${artist.images[1].url})` };
     });
     populateTemplate({ relatedArtists }, 'related-artists');
   });
@@ -183,14 +184,15 @@ function formValidation(context, success) {
 /**
  * Completes all the api requests to load a new artist page
  * @param  {string} artist [artist name]
+ * @param  {keyword} context [dom element the load new artist was triggered at]
  */
-function loadNewArtist(artist, context) {
+function loadNewArtist(artist, context, artistId = 'none') {
   new Promise((resolve, reject) => {
-    getArtist(artist, resolve, reject);
+    getArtist(artist, resolve, reject, artistId);
   }).then((artistObj) => {
     formValidation(context, true);
     getTracks(artistObj.artistId);
-    getAlbums(artistObj.artistName, artistObj.artistId, true);
+    getAlbums(artistObj.artistName, artistObj.artistId);
     getRelatedArtists(artistObj.artistId);
   }).catch(() => {
     formValidation(context, false);
@@ -210,7 +212,8 @@ $('.search-form').submit(function (event) {
 
 $('.related-artists-placeholder').on('click', '.card', function () {
   const artist = $(this).find('.card-text').text();
-  loadNewArtist(artist, this);
+  const artistId = $(this).find('.card-text').data('artist-id');
+  loadNewArtist(artist, this, artistId);
 })
 
 /**

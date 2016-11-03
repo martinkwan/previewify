@@ -31,9 +31,11 @@ function getData(url, res) {
 
 /**
  * Route to get artist information
+ * Working on making two routes
  */
 app.get('/artist', (req, res) => {
-  const url = `https://api.spotify.com/v1/search?query=${req.query.artist}&type=artist`;
+  const url = req.query.artistId === 'none' ? `https://api.spotify.com/v1/search?query=${req.query.artist}&type=artist`
+                                            : `https://api.spotify.com/v1/artists/${req.query.artistId}`;
   getData(url, res);
 });
 
