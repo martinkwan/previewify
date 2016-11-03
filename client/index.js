@@ -48,13 +48,13 @@ function getArtist(rawArtist, resolve, reject) {
     }
     // Scroll to top of page if no errors
     $('html, body').animate({ scrollTop: 0 }, 'fast');
-    let artistObj = JSON.parse(artistResults).artists.items[0];
-    if (artistObj) {
-      artistObj = {
-        artistName: artistObj.name,
-        artistImg: artistObj.images[1].url,
-        artistId: artistObj.id,
-      };
+    const parsedArtistObj = JSON.parse(artistResults).artists.items[0];
+    if (parsedArtistObj) {
+      const artistObj = {};
+      // If there is no artist image, assign it a default artist image
+      artistObj.artistImg = !parsedArtistObj.images[1] ? 'http://www.offaehrte.de/gfx/team/maske.jpg' : parsedArtistObj.images[1].url;
+      artistObj.artistName = parsedArtistObj.name;
+      artistObj.artistId = parsedArtistObj.id;
       populateTemplate(artistObj, 'artist-profile');
       adjustCss(artistObj.artistImg);
       resolve(artistObj);
