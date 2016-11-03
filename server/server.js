@@ -47,6 +47,7 @@ app.get('/tracks', (req, res) => {
 
 /**
  * Route to get artist's albums
+ * Uses artistName instead of artistId because of better album results
  */
 app.get('/albums', (req, res) => {
   const url = `https://api.spotify.com/v1/search?query=${req.query.artistName}&type=album&market=US&limit=50`;

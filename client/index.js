@@ -37,8 +37,16 @@ function adjustCss(artistImg) {
  * @param  {string} artist  [artist name from input value]
  * @param  {function} resolve [resolves promise and sends artistObj to then()]
  */
-function getArtist(artist, resolve, reject) {
+function getArtist(rawArtist, resolve, reject, context) {
+  // Replace accented letters with normal letters in order for search to properly work
+  const artist = latinize(rawArtist);
   $.get('/artist', { artist }, (artistResults) => {
+    // Error handling, if no artist results, make context element red
+    if(artistResults === 'error') {
+      $(context).addClass('list-group-item-danger has-danger');
+      return;
+    }
+    $('html, body').animate({ scrollTop: 0 }, 'fast');
     let artistObj = JSON.parse(artistResults).artists.items[0];
     if (artistObj) {
       artistObj = {
@@ -89,24 +97,24 @@ function displayCoverArt(coverArtUrls) {
 /**
  * Make a GET request to server to spotify api to grab artist's albums
  * Then render album list using handlebars.js template
- * Check if album image length > 1,
- * because 'kanye west' query had error with album image not showing
- * @param  {string} artistName [name of artist]
+ * @param  {string} rawArtistName [name of artist]
  * @param  {string} artistId   [id of artist]
  */
-function getAlbums(artistName, artistId) {
+function getAlbums(rawArtistName, artistId) {
+  // Replace accented letters with normal letters in order for search to properly work
+  const artistName = latinize(rawArtistName);
   $.get('/albums', { artistName }, (albumResults) => {
-    const coverArtUrls = JSON.parse(albumResults).albums.items.map((album) => {
-      if (album.images.length > 1) {
-        return `url('${album.images[1].url}')`
-      }
-    });
-    const albumObj = JSON.parse(albumResults).albums.items.map((album) => {
-      if (album.images.length > 1) {
-        return { albumImg: album.images[1].url, albumId: album.id, albumName: album.name.replace(/\s/g, 'unique.combo.of.words') };
-      }
+    const coverArtUrls = [];
+    const albumObj = [];
+    JSON.parse(albumResults).albums.items.forEach((album) => {
+      // If there is no albumImgUrl, assign a default imgUrl
+      const albumImg = album.images.length > 1 ? album.images[1].url : 'https://i.scdn.co/image/907e87639091f8805c48681d9e7f144dedf53741';
+      coverArtUrls.push(`url('${albumImg}')`);
+      albumObj.push({ albumImg, albumId: album.id, albumName: album.name.replace(/\s/g, 'unique.combo.of.words') });
     });
     displayCoverArt(coverArtUrls);
+    // Pass artistId to be stored in data attribute,
+    // to be used in api call to grab album tracks later
     populateTemplate({ albumObj, artistId }, 'album-list');
     $('.popular-album-image').addClass('active-album');
   });
@@ -166,7 +174,7 @@ function formValidation(context, success) {
  */
 function loadNewArtist(artist, context) {
   new Promise((resolve, reject) => {
-    getArtist(artist, resolve, reject);
+    getArtist(artist, resolve, reject, context);
   }).then((artistObj) => {
     formValidation(context, true);
     getTracks(artistObj.artistId);
@@ -189,7 +197,6 @@ $('.search-form').submit(function (event) {
 });
 
 $('.related-artists-placeholder').on('click', 'span', function () {
-  $('html, body').animate({ scrollTop: 0 }, 'fast');
   const artist = $(this).find('.card-text').text();
   loadNewArtist(artist, this);
 })
@@ -227,15 +234,17 @@ const currentAudio = (function () {
 
 /**
  * Play song at context DOM element,
+ * Add and remove classes to make song highlighted/ have border,
+ * And to display Play or Pause button depending if song is playing
  * Recursively play next song
  * @param  {keyword} context [dom element to play song]
  */
 function playSong(context) {
   // Set up audioObject for song to be played
   const previewUrl = $(context).data('track-preview');
+  // If there is an error, make the song element red
   if (!previewUrl) {
     $(context).addClass('list-group-item-danger has-danger');
-    // $(context).text()
     return;
   }
   const audioObject = new Audio(previewUrl);
@@ -282,6 +291,7 @@ $('.track-list-placeholder').on('click', 'li', function () {
 });
 /**
  * Plays or pause song
+ * If no song is currently selected, play first song on album
  */
 $('.play-pause').on('click', function () {
   const audioObject = currentAudio.get();
