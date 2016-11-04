@@ -39,15 +39,13 @@ function adjustCss(artistImg) {
  * Make a GET request to server to spotify api to grab artist information
  * Then render artist info using handlebars.js template
  * Then send artistObj to next step in promise
- * @param  {string} rawArtist  [artist name from input value]
+ * @param  {string} artist  [artist name from input value]
  * @param  {function} resolve [resolves promise and sends artistObj to then()]
  * @param  {function} reject  [rejects promoise]
  * @param  {string}   artistId [artistId of artist if triggered from clicking on related artist
  *                             , otherwise artistId is 'none' if getArtist is invoked by search]
  */
 function getArtist(artist, resolve, reject, artistId) {
-  // Replace accented letters with normal letters in order for search to properly work
-  // const artist = latinize(rawArtist);
   $.get('/artist', { artist, artistId }, (artistResults) => {
     // Error handling, if no artist results, early return
     if (artistResults === 'error') {
