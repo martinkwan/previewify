@@ -1,6 +1,7 @@
 /**
  * TO DO- > Fix artist name on audio bar -> when switching to another artist
  * Spacing on audio bar
+ * Fix above n beyond album search issue
  */
 
 /**
@@ -44,9 +45,9 @@ function adjustCss(artistImg) {
  * @param  {string}   artistId [artistId of artist if triggered from clicking on related artist
  *                             , otherwise artistId is 'none' if getArtist is invoked by search]
  */
-function getArtist(rawArtist, resolve, reject, artistId) {
+function getArtist(artist, resolve, reject, artistId) {
   // Replace accented letters with normal letters in order for search to properly work
-  const artist = latinize(rawArtist);
+  // const artist = latinize(rawArtist);
   $.get('/artist', { artist, artistId }, (artistResults) => {
     // Error handling, if no artist results, early return
     if (artistResults === 'error') {
@@ -83,6 +84,10 @@ function getArtist(rawArtist, resolve, reject, artistId) {
 function getTracks(artistId) {
   $.get('/tracks', { artistId }, (trackResults) => {
     const trackList = JSON.parse(trackResults).tracks.map((track) => {
+      // const trackArtists = track.artists.reduce((obj, artist)=> {
+      //   // if()
+      //   return obj[artist.name] = artist.id;
+      // },{})
       return { trackName: track.name, trackPreview: track.preview_url };
     });
     populateTemplate({ trackList, albumName: 'Popular' }, 'track-list');
@@ -113,13 +118,13 @@ function displayCoverArt(coverArtUrls) {
  * @param  {string} artistId   [id of artist]
  * @param  {boolean} firstTry  [boolean for whether it is first attempt to grab album data]
  */
-function getAlbums(rawArtistName, artistId, firstTry = true) {
+function getAlbums(artistName, artistId, firstTry = true) {
   // Replace accented letters with normal letters in order for search to properly work
-  const artistName = latinize(rawArtistName);
+  // const artistName = latinize(rawArtistName);
   $.get('/albums', { artistName, artistId, firstTry }, (albumResults) => {
     // If API request fails the first try, try a second try with a different route
     if (albumResults === 'error' && firstTry) {
-      getAlbums(rawArtistName, artistId, false);
+      getAlbums(artistName, artistId, false);
       return;
       // If API request fails the second try, log an error message
     } else if (albumResults === 'error') {
@@ -236,7 +241,7 @@ $('.search-clear').click(() => $('.form-control').val('').focus());
 $('.related-artists-placeholder').on('click', '.card', function () {
   const artist = $(this).find('.card-text').text();
   const artistId = $(this).find('.card-text').data('artist-id');
-  loadNewArtist(artist, this, artistId);
+  loadNewArtist(artist, this);
 });
 
 /**
