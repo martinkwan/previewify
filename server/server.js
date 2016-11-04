@@ -1,3 +1,5 @@
+'use strict';
+
 const express = require('express');
 const path = require('path');
 const request = require('request');
@@ -36,7 +38,7 @@ function getData(url, res, parameters) {
  * Run second route with artistId for accuracy
  */
 app.get('/artist', (req, res) => {
-  var url;
+  let url;
   let parameters;
   if (req.query.artistId === 'none') {
     url = 'https://api.spotify.com/v1/search';
