@@ -1,4 +1,9 @@
 /**
+ * TO DO- > Fix artist name on audio bar -> when switching to another artist
+ * Spacing on audio bar
+ */
+
+/**
  * Handlebar template function
  * @param  {object} obj              [object of data to render]
  * @param  {string} templateSelector [DOM location to select template and to render to]
@@ -61,6 +66,7 @@ function getArtist(rawArtist, resolve, reject, artistId) {
       artistObj.artistName = parsedArtistObj.name;
       artistObj.artistId = parsedArtistObj.id;
       populateTemplate(artistObj, 'artist-profile');
+      $('.artist-name-audio-bar').html(`<h7 class="audio-bar-text">${artistObj.artistName}</h7>`)
       adjustCss(artistObj.artistImg);
       resolve(artistObj);
     } else {
@@ -282,6 +288,7 @@ function playSong(context) {
   const audioObject = new Audio(previewUrl);
   currentAudio.set(audioObject);
   audioObject.play();
+  $('.song-name-audio-bar').html(`<h6 class="audio-bar-text">${$(context).text()}</h6>`)
   $(context).removeClass('selected');
   $(context).addClass('playing');
   audioObject.addEventListener('ended', () => {
