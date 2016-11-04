@@ -5,6 +5,10 @@
  * =========================================
  */
 
+ .hide-this {
+   display:none;
+ }
+
 .center-children {
   text-align: center;
 }
@@ -26,10 +30,6 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
   font-family: "Helvetica Neue", Arial, sans-serif;
   color: #191414;
   height:100%;
-}
-
-.hide-this {
-  display:none;
 }
 
 .box-shadow {
