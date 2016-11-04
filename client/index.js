@@ -175,14 +175,15 @@ function getRelatedArtists(artistId) {
  */
 function formValidation(context, success) {
   if (success) {
-    $(context).find('input').removeClass('form-control-danger');
+    // $(context).find('input').removeClass('form-control-danger');
     $(context).removeClass('has-danger');
-    $(context).find('input').addClass('form-control-success');
+    // Adds class that displays error icon
+    // $(context).find('input').addClass('form-control-success');
     $(context).addClass('has-success');
   } else {
-    $(context).find('input').removeClass('form-control-success');
+    // $(context).find('input').removeClass('form-control-success');
     $(context).removeClass('has-success');
-    $(context).find('input').addClass('form-control-danger');
+    // $(context).find('input').addClass('form-control-danger');
     $(context).addClass('has-danger');
   }
 }
@@ -216,6 +217,11 @@ $('.search-form').submit(function (event) {
   const artist = $(this).find('input').val();
   loadNewArtist(artist, this);
 });
+
+/**
+ * Clears search form when x is clicked
+ */
+$('.search-clear').click(() => $('.form-control').val('').focus());
 
 /**
  * When related artist card is clicked, load new artist with its artist ID

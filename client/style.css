@@ -86,6 +86,27 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
 }
 
 /**
+ * Refactor clear button to use relative positioning later
+ */
+.search-clear {
+    position: absolute;
+    right: 115px;
+    top: 0;
+    bottom: 0;
+    height: 20px;
+    margin: auto;
+    font-size: 20px;
+    cursor: pointer;
+    color: #ccc;
+}
+
+@media (max-width: 575px) {
+  .search-clear {
+    right: 30px;
+  }
+}
+
+/**
  * =========================================
  * Artist Profile
  * =========================================
