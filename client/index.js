@@ -299,8 +299,13 @@ function playSong(context) {
   audioObject.play();
   const artists = $(context).find('.other-artist').text();
   const songName = $(context).find('.song-name').text();
-  $('.artist-name-audio-bar').html(`<h8 class="audio-bar-text">${artists}</h8>`)
-  $('.song-name-audio-bar').html(`<h8 class="audio-bar-text">${songName}</h8>`)
+  // Reset width or else there will be width calculation problems
+  $('.audio-bar-fluid-width').css('width', '100%');
+  $('.artist-name-audio-bar').html(`<h8 class="audio-bar-text artist-name-audio-bar-text"> &#8226 ${artists}</h8>`)
+  $('.song-name-audio-bar').html(`<h8 class="audio-bar-text">${songName} </h8>`)
+  // Set up horizontal scrolling for audio bar
+  const width = $('.song-name-audio-bar').outerWidth() + $('.artist-name-audio-bar').outerWidth() + 30;
+  $('.audio-bar-fluid-width').css('width', width);
   $(context).removeClass('selected');
   $(context).addClass('playing');
   audioObject.addEventListener('ended', () => {
@@ -395,3 +400,10 @@ $(window).scroll(() => {
     $('.audio-bar').removeClass('scroll-spy-position');
   }
 });
+
+// $('.post').each(function() {
+//
+//     // const width = $('.song-name-audio-bar').outerWidth(true) + $('.artist-name-audio-bar').outerWidth(true);
+//     // $('.audio-bar-fluid-width').css('width', width);
+// });
+// $('body').css('width', width + 250);
