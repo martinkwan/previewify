@@ -241,7 +241,6 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
 
 .album-list-container {
   height: 600px;
-  padding-left: 0;
   padding-bottom: 20px;
 }
 
@@ -275,6 +274,9 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
   }
   .album-image {
     width: 118px;
+  }
+  .album-list-container {
+    padding-left: 0;
   }
 }
 
