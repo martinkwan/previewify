@@ -1,10 +1,4 @@
 /**
- * TO DO- > Fix artist name on audio bar -> when switching to another artist
- * Spacing on audio bar
- * Fix above n beyond album search issue
- */
-
-/**
  * Handlebar template function
  * @param  {object} obj              [object of data to render]
  * @param  {string} templateSelector [DOM location to select template and to render to]
@@ -191,15 +185,10 @@ function getRelatedArtists(artistId) {
  */
 function formValidation(context, success) {
   if (success) {
-    // $(context).find('input').removeClass('form-control-danger');
     $(context).removeClass('has-danger');
-    // Adds class that displays error icon
-    // $(context).find('input').addClass('form-control-success');
     $(context).addClass('has-success');
   } else {
-    // $(context).find('input').removeClass('form-control-success');
     $(context).removeClass('has-success');
-    // $(context).find('input').addClass('form-control-danger');
     $(context).addClass('has-danger');
   }
 }
@@ -257,7 +246,6 @@ $('.related-artists-placeholder').on('click', '.card', function (e) {
   const artistId = $(this).find('.card-text').data('artist-id');
   loadNewArtist(artist, this, artistId);
 });
-
 
 /**
  * Changes tracklist when an album art is clicked
