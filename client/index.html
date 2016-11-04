@@ -101,7 +101,12 @@
       <div class = "track-list">
         <ol class="list-group track-list-ol">
           {{#each trackList}}
-            <li class="list-group-item" data-track-preview={{this.trackPreview}}>{{this.trackName}}</li>
+            <li class="list-group-item" data-track-preview={{this.trackPreview}}>
+              <a class="song-name">{{this.trackName}}</a>
+              {{#each this.trackArtists}}
+                <a id = "other-artist" class="other-artist" data-artist-id= {{this.artistId}} > {{this.artistName}} </a>
+              {{/each}}
+            </li>
           {{/each}}
         </ol>
       </div>

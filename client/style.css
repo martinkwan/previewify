@@ -203,6 +203,24 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
   }
 
 }
+#other-artist{
+  font-size: 14px;
+  color: grey;
+}
+#other-artist:hover{
+  border-bottom: 2px solid #1DB954;
+  cursor: pointer;
+  color: #1DB954;
+}
+
+.playing > #other-artist {
+  color: #E4EDE4;
+}
+
+.playing > #other-artist:hover {
+  color:white;
+  border-bottom: 2px solid white;
+}
 
 /**
  * =========================================
@@ -357,11 +375,14 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
   font-size: 70px;
 }
 .scroll-spy-position {
-  bottom:-117px;
+  bottom:-137px;
   position: absolute;
 }
 .audio-bar-text{
   color:white;
+}
+.artist-name-audio-bar {
+  margin-bottom: 5px;
 }
 
 /**
@@ -395,7 +416,7 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
   position: absolute;
   background: #1DB954;
   width: 100%;
-  margin-top: 115px;
+  margin-top: 135px;
   padding: 5px;
   z-index: 2;
 }

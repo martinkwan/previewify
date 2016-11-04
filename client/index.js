@@ -67,7 +67,6 @@ function getArtist(artist, resolve, reject, artistId) {
       artistObj.artistName = parsedArtistObj.name;
       artistObj.artistId = parsedArtistObj.id;
       populateTemplate(artistObj, 'artist-profile');
-      $('.artist-name-audio-bar').html(`<h7 class="audio-bar-text">${artistObj.artistName}</h7>`)
       adjustCss(artistObj.artistImg);
       resolve(artistObj);
     } else {
@@ -84,12 +83,12 @@ function getArtist(artist, resolve, reject, artistId) {
 function getPopularTracks(artistId) {
   $.get('/tracks', { artistId }, (trackResults) => {
     const trackList = JSON.parse(trackResults).tracks.map((track) => {
-      // Set up get artists later
-      // const trackArtists = track.artists.reduce((obj, artist)=> {
-      //   // if()
-      //   return obj[artist.name] = artist.id;
-      // },{})
-      return { trackName: track.name, trackPreview: track.preview_url };
+      const trackArtists = track.artists.reduce((artistArr, artist, index) => {
+        const artistName = index === track.artists.length - 1 ? artist.name : `${artist.name},`;
+        artistArr.push({ artistName, artistId: artist.id });
+        return artistArr;
+      }, []);
+      return { trackName: track.name, trackPreview: track.preview_url, trackArtists };
     });
     populateTemplate({ trackList, albumName: 'Popular' }, 'track-list');
   });
@@ -158,7 +157,13 @@ function getAlbums(artistName, artistId) {
 function getAlbumTracks(albumId, albumName) {
   $.get('/albumTracks', { albumId }, (albumTrackResults) => {
     const trackList = JSON.parse(albumTrackResults).items.map((track) => {
-      return { trackName: track.name, trackPreview: track.preview_url };
+      // Create array of artists for each track and add commas between each one
+      const trackArtists = track.artists.reduce((artistArr, artist, index) => {
+        const artistName = index === track.artists.length - 1 ? artist.name : `${artist.name},`;
+        artistArr.push({ artistName, artistId: artist.id });
+        return artistArr;
+      }, []);
+      return { trackName: track.name, trackPreview: track.preview_url, trackArtists };
     });
     populateTemplate({ trackList, albumName }, 'track-list');
   });
@@ -237,14 +242,24 @@ $('.search-form').submit(function (event) {
 $('.search-clear').click(() => $('.form-control').val('').focus());
 
 /**
+ * On other-artist click, load new artist page
+ */
+$('.track-list-placeholder').on('click', '.other-artist', function () {
+  const artist = $(this).text();
+  const artistId = $(this).data('artist-id');
+  loadNewArtist(artist, this, artistId);
+});
+
+/**
  * When related artist card is clicked, load new artist with its artist ID
  * Cannot be an arrow function because of the 'this' binding
  */
-$('.related-artists-placeholder').on('click', '.card', function () {
+$('.related-artists-placeholder').on('click', '.card', function (e) {
   const artist = $(this).find('.card-text').text();
   const artistId = $(this).find('.card-text').data('artist-id');
   loadNewArtist(artist, this, artistId);
 });
+
 
 /**
  * Changes tracklist when an album art is clicked
@@ -281,6 +296,7 @@ const currentAudio = (function () {
  * Play song at context DOM element,
  * Add and remove classes to make song highlighted/ have border,
  * And to display Play or Pause button depending if song is playing
+ * And to display current song and artists on audio bar
  * Recursively play next song
  * @param  {keyword} context [dom element to play song]
  */
@@ -295,7 +311,10 @@ function playSong(context) {
   const audioObject = new Audio(previewUrl);
   currentAudio.set(audioObject);
   audioObject.play();
-  $('.song-name-audio-bar').html(`<h6 class="audio-bar-text">${$(context).text()}</h6>`)
+  const artists = $(context).find('.other-artist').text();
+  const songName = $(context).find('.song-name').text();
+  $('.artist-name-audio-bar').html(`<h8 class="audio-bar-text">${artists}</h8>`)
+  $('.song-name-audio-bar').html(`<h8 class="audio-bar-text">${songName}</h8>`)
   $(context).removeClass('selected');
   $(context).addClass('playing');
   audioObject.addEventListener('ended', () => {
@@ -323,7 +342,11 @@ function playSong(context) {
  * Plays song when clicked
  * Cannot be an arrow function because of the 'this' binding
  */
-$('.track-list-placeholder').on('click', 'li', function () {
+$('.track-list-placeholder').on('click', 'li', function (e) {
+  // Early return if clicked on other-artist
+  if (e.target !== this) {
+    return;
+  }
   const audioObject = currentAudio.get();
   // If this song is playing, pause it
   if ($(this).hasClass('playing')) {
