@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="style.css" />
@@ -18,6 +18,7 @@
     <nav class="navbar hide-this">
       <form class="form-inline float-sm-right search-form has-success">
         <input class="form-control" type="text" placeholder="Search">
+        <span class="fa fa-times hvr-grow search-clear"></span>
         <button class="btn btn-outline-success submit-button" type="submit">Search</button>
       </form>
     </nav>
@@ -58,6 +59,8 @@
 
     <!-- Audio bar -->
     <footer class="audio-bar light-box-shadow hide-this">
+      <div class="song-name-audio-bar" ></div>
+      <div class="artist-name-audio-bar" ></div>
       <span>
         <i class="noselect fa fa-step-backward hvr-grow audio-controls"></i>
         <i class="noselect fa fa-play-circle-o play-pause hvr-grow audio-controls"></i>
@@ -69,11 +72,8 @@
     <footer class = "center-children footer-position footer-bar">
       <span>
         Created by Martin Kwan
-        &nbsp;
         <a class = "footer-link" href = "https://www.linkedin.com/in/mkkwan" target ="_blank"><i class="fa fa-linkedin"></i></a>
-        &nbsp;
         <a class = "footer-link" href = "https://www.github.com/martinkwan" target ="_blank"><i class="fa fa-github"></i></a>
-        &nbsp;
         <a class = "footer-link" href = "mailto:martinkkwan@gmail.com?Subject=Hello!" target="_top"><i class="fa fa-envelope"></i></a>
       </span>
     </footer>
@@ -101,7 +101,12 @@
       <div class = "track-list">
         <ol class="list-group track-list-ol">
           {{#each trackList}}
-            <li class="list-group-item" data-track-preview={{this.trackPreview}}>{{this.trackName}}</li>
+            <li class="list-group-item" data-track-preview={{this.trackPreview}}>
+              <a class="song-name">{{this.trackName}}</a>
+              {{#each this.trackArtists}}
+                <a id = "other-artist" class="other-artist" data-artist-id= {{this.artistId}} > {{this.artistName}} </a>
+              {{/each}}
+            </li>
           {{/each}}
         </ol>
       </div>
@@ -126,7 +131,7 @@
         <span class="card box-shadow hvr-bob">
             <div class="related-artist-img" style={{this.artistImg}} alt="Card image cap"> </div>
             <div class="card-block">
-              <p class="card-text">{{this.artistName}}</p>
+              <p class="card-text" data-artist-id={{this.artistId}} >{{this.artistName}} </p>
             </div>
         </span>
       </span>

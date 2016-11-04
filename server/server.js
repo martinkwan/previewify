@@ -1,7 +1,4 @@
-/**
- * TO DO:
- *
- */
+'use strict';
 const express = require('express');
 const path = require('path');
 const request = require('request');
@@ -17,13 +14,17 @@ app.get('/', (req, res) => res.sendFile(path.join(__dirname, '../client/index.ht
  * Function to return data from spotify API
  * @param  {string} url [url of spotify api endpoint]
  * @param  {object} res [response from api endpoint]
+ * @param  {object} parameters [object of parameters]
  */
-function getData(url, res) {
-  request(url, (error, response, body) => {
+function getData(url, res, parameters) {
+  request({
+    url,
+    qs: parameters,
+  }, (error, response, body) => {
     if (!error && response.statusCode === 200) {
       res.end(body);
     } else {
-      console.error();
+      console.log('API is returning an error, or status code is not 200');
       res.end('error');
     }
   });
@@ -31,10 +32,20 @@ function getData(url, res) {
 
 /**
  * Route to get artist information
+ * If route is invoked from search (no artistId), run first route
+ * Otherwise, if route is invoked from clicking related artist,
+ * Run second route with artistId for accuracy
  */
 app.get('/artist', (req, res) => {
-  const url = `https://api.spotify.com/v1/search?query=${req.query.artist}&type=artist`;
-  getData(url, res);
+  let url;
+  let parameters;
+  if (req.query.artistId === 'none') {
+    url = 'https://api.spotify.com/v1/search';
+    parameters = { query: req.query.artist, type: 'artist' };
+  } else {
+    url = `https://api.spotify.com/v1/artists/${req.query.artistId}`;
+  }
+  getData(url, res, parameters);
 });
 
 /**
@@ -42,18 +53,18 @@ app.get('/artist', (req, res) => {
  */
 app.get('/tracks', (req, res) => {
   const url = `https://api.spotify.com/v1/artists/${req.query.artistId}/top-tracks?country=US`;
-  getData(url, res);
+  const parameters = { country: 'US' };
+  getData(url, res, parameters);
 });
 
 /**
  * Route to get artist's albums
- * First it uses artistName instead of artistId because of better album results (no duplicates)
- * It only uses artistId when using artistName returns an error (mainly for foreign languages)
+ * It uses artistName instead of artistId because of better album results (no duplicates)
  */
 app.get('/albums', (req, res) => {
-  const url = req.query.firstTry === 'true' ? `https://api.spotify.com/v1/search?query=${req.query.artistName}&type=album&market=US&limit=50`
-                                            : `https://api.spotify.com/v1/artists/${req.query.artistId}/albums?market=US&album_type=album`;
-  getData(url, res);
+  const url = 'https://api.spotify.com/v1/search';
+  const parameters = { query: req.query.artistName, type: 'album', market: 'US', limit: '50' };
+  getData(url, res, parameters);
 });
 
 /**

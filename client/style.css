@@ -5,6 +5,10 @@
  * =========================================
  */
 
+ .hide-this {
+   display:none;
+ }
+
 .center-children {
   text-align: center;
 }
@@ -26,10 +30,6 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
   font-family: "Helvetica Neue", Arial, sans-serif;
   color: #191414;
   height:100%;
-}
-
-.hide-this {
-  display:none;
 }
 
 .box-shadow {
@@ -82,6 +82,27 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
 @media (max-width: 575px) {
   .submit-button {
     display: none;
+  }
+}
+
+/**
+ * Refactor clear button to use relative positioning later
+ */
+.search-clear {
+    position: absolute;
+    right: 115px;
+    top: 0;
+    bottom: 0;
+    height: 20px;
+    margin: auto;
+    font-size: 20px;
+    cursor: pointer;
+    color: #ccc;
+}
+
+@media (max-width: 575px) {
+  .search-clear {
+    right: 30px;
   }
 }
 
@@ -157,8 +178,8 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
 
 .playing {
   background-color: #1DB954;
+  border: 4px solid #1DB954;
   color:white;
-  /*border: 4px solid #1DB954;*/
 }
 .selected {
   border: 4px solid #1DB954;
@@ -172,6 +193,33 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
 .track-list {
   height: 600px;
   overflow-y: scroll;
+}
+
+@media (max-width: 767px) {
+  .track-list {
+    height: auto;
+    min-height: 250px;
+    margin-bottom: 20px;
+  }
+
+}
+#other-artist{
+  font-size: 14px;
+  color: grey;
+}
+#other-artist:hover{
+  border-bottom: 2px solid #1DB954;
+  cursor: pointer;
+  color: #1DB954;
+}
+
+.playing > #other-artist {
+  color: #E4EDE4;
+}
+
+.playing > #other-artist:hover {
+  color:white;
+  border-bottom: 2px solid white;
 }
 
 /**
@@ -310,7 +358,7 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
   width:100%;
   background: #1DB954;
   position:fixed;
-  padding: 5px;
+  padding: 7px;
   text-align: center;
   z-index:1;
   bottom:0px;
@@ -324,13 +372,18 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
 .play-pause {
   margin-right: 20px;
   margin-left: 20px;
-  font-size: 50px;
+  font-size: 70px;
 }
 .scroll-spy-position {
-  bottom:-62px;
+  bottom:-137px;
   position: absolute;
 }
-
+.audio-bar-text{
+  color:white;
+}
+.artist-name-audio-bar {
+  margin-bottom: 5px;
+}
 
 /**
  * =========================================
@@ -363,7 +416,7 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
   position: absolute;
   background: #1DB954;
   width: 100%;
-  margin-top: 60px;
+  margin-top: 135px;
   padding: 5px;
   z-index: 2;
 }
@@ -373,6 +426,7 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
 }
 .footer-link {
   color:white;
+  margin-left: 5px;
 }
 .footer-link:hover{
   color:black;
