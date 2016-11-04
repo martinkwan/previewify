@@ -26,15 +26,24 @@ function getData(url, res, parameters) {
       console.log('API is returning an error, or status code is not 200');
       res.end('error');
     }
-  })
+  });
 }
 
 /**
  * Route to get artist information
+ * If route is invoked from search (no artistId), run first route
+ * Otherwise, if route is invoked from clicking related artist,
+ * Run second route with artistId for accuracy
  */
 app.get('/artist', (req, res) => {
-  const url = 'https://api.spotify.com/v1/search';
-  const parameters = { query: req.query.artist, type: 'artist' };
+  let url;
+  let parameters;
+  if (req.query.artistId === 'none') {
+    url = 'https://api.spotify.com/v1/search';
+    parameters = { query: req.query.artist, type: 'artist' };
+  } else {
+    url = `https://api.spotify.com/v1/artists/${req.query.artistId}`;
+  }
   getData(url, res, parameters);
 });
 
@@ -53,7 +62,7 @@ app.get('/tracks', (req, res) => {
  */
 app.get('/albums', (req, res) => {
   const url = 'https://api.spotify.com/v1/search';
-  const parameters = { query: req.query.artistName, type: 'album', market: 'US', limit: '50'};
+  const parameters = { query: req.query.artistName, type: 'album', market: 'US', limit: '50' };
   getData(url, res, parameters);
 });
 

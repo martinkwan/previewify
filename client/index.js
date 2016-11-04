@@ -81,9 +81,10 @@ function getArtist(artist, resolve, reject, artistId) {
  * Then render tracklist using handlebars.js template
  * @param  {string} artistId              [id of artist]
  */
-function getTracks(artistId) {
+function getPopularTracks(artistId) {
   $.get('/tracks', { artistId }, (trackResults) => {
     const trackList = JSON.parse(trackResults).tracks.map((track) => {
+      // Set up get artists later
       // const trackArtists = track.artists.reduce((obj, artist)=> {
       //   // if()
       //   return obj[artist.name] = artist.id;
@@ -118,25 +119,23 @@ function displayCoverArt(coverArtUrls) {
  * @param  {string} artistId   [id of artist]
  * @param  {boolean} firstTry  [boolean for whether it is first attempt to grab album data]
  */
-function getAlbums(artistName, artistId, firstTry = true) {
-  // Replace accented letters with normal letters in order for search to properly work
-  // const artistName = latinize(rawArtistName);
-  $.get('/albums', { artistName, artistId, firstTry }, (albumResults) => {
-    // If API request fails the first try, try a second try with a different route
-    if (albumResults === 'error' && firstTry) {
-      getAlbums(artistName, artistId, false);
-      return;
-      // If API request fails the second try, log an error message
-    } else if (albumResults === 'error') {
+function getAlbums(artistName, artistId) {
+  $.get('/albums', { artistName, artistId }, (albumResults) => {
+      // If API request fails, log an error message
+    if (albumResults === 'error') {
       console.log('Error getting albums');
       return;
     }
     const coverArtUrls = [];
     const albumObj = [];
-    // albumResults is in different format depending on route
-    const parsedAlbumResults = firstTry ? JSON.parse(albumResults).albums.items
-                                        : JSON.parse(albumResults).items;
+    const parsedAlbumResults = JSON.parse(albumResults).albums.items;
     parsedAlbumResults.forEach((album) => {
+      // Skip over albums that do not have artist listed in artist array
+      for (let i = 0; i < album.artists.length; i += 1) {
+        if (album.artists[0].name !== artistName) {
+          return;
+        }
+      }
       // If there is no albumImgUrl, assign a default imgUrl
       const albumImg = album.images.length > 1 ? album.images[1].url : 'https://i.scdn.co/image/907e87639091f8805c48681d9e7f144dedf53741';
       coverArtUrls.push(`url('${albumImg}')`);
@@ -153,7 +152,7 @@ function getAlbums(artistName, artistId, firstTry = true) {
 /**
  * Make a GET request to server to spotify api to grab albums' tracks
  * Then render tracklist using handlebars.js template
- * @param  {string} artistId [id of artist]
+ * @param  {string} albumId [id of album]
  * @param  {string} albumName   [name of album]
  */
 function getAlbumTracks(albumId, albumName) {
@@ -173,7 +172,10 @@ function getAlbumTracks(albumId, albumName) {
 function getRelatedArtists(artistId) {
   $.get('/relatedArtists', { artistId }, (artistResults) => {
     const relatedArtists = JSON.parse(artistResults).artists.map((artist) => {
-      return { artistId: artist.id, artistName: artist.name, artistImg: `background-image:url(${artist.images[1].url})` };
+      // If there is no artistImg, assign a default imgUrl
+      const artistImg = artist.images.length > 1 ? `background-image:url(${artist.images[1].url})`
+                                                 : 'background-image:url(https://i.scdn.co/image/907e87639091f8805c48681d9e7f144dedf53741)';
+      return { artistId: artist.id, artistName: artist.name, artistImg };
     });
     populateTemplate({ relatedArtists }, 'related-artists');
   });
@@ -210,7 +212,7 @@ function loadNewArtist(artist, context, artistId = 'none') {
     getArtist(artist, resolve, reject, artistId);
   }).then((artistObj) => {
     formValidation(context, true);
-    getTracks(artistObj.artistId);
+    getPopularTracks(artistObj.artistId);
     getAlbums(artistObj.artistName, artistObj.artistId);
     getRelatedArtists(artistObj.artistId);
   }).catch(() => {
@@ -241,7 +243,7 @@ $('.search-clear').click(() => $('.form-control').val('').focus());
 $('.related-artists-placeholder').on('click', '.card', function () {
   const artist = $(this).find('.card-text').text();
   const artistId = $(this).find('.card-text').data('artist-id');
-  loadNewArtist(artist, this);
+  loadNewArtist(artist, this, artistId);
 });
 
 /**
@@ -255,7 +257,7 @@ $('.album-list-placeholder').on('click', 'img', function () {
   const albumName = $(this).data('album-name').replace(/(unique.combo.of.words)/g, ' ');
   if (albumId === 'popularSongs') {
     const artistId = $(this).data('artist-id');
-    getTracks(artistId);
+    getPopularTracks(artistId);
   } else {
     getAlbumTracks(albumId, albumName);
   }
