@@ -178,6 +178,7 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
 
 .playing {
   background-color: #1DB954;
+  border: 4px solid #1DB954;
   color:white;
 }
 .selected {
@@ -339,7 +340,7 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
   width:100%;
   background: #1DB954;
   position:fixed;
-  padding: 5px;
+  padding: 7px;
   text-align: center;
   z-index:1;
   bottom:0px;
@@ -353,13 +354,12 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
 .play-pause {
   margin-right: 20px;
   margin-left: 20px;
-  font-size: 50px;
+  font-size: 70px;
 }
 .scroll-spy-position {
-  bottom:-62px;
+  bottom:-87px;
   position: absolute;
 }
-
 
 /**
  * =========================================
@@ -392,7 +392,7 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
   position: absolute;
   background: #1DB954;
   width: 100%;
-  margin-top: 60px;
+  margin-top: 85px;
   padding: 5px;
   z-index: 2;
 }
