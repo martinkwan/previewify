@@ -184,12 +184,14 @@ function getRelatedArtists(artistId) {
  * @param  {boolean} success [if artist search was success or failure]
  */
 function formValidation(context, success) {
-  if (success) {
-    $(context).removeClass('has-danger');
-    $(context).addClass('has-success');
-  } else {
-    $(context).removeClass('has-success');
-    $(context).addClass('has-danger');
+  if (context) {
+    if (success) {
+      $(context).removeClass('has-danger');
+      $(context).addClass('has-success');
+    } else {
+      $(context).removeClass('');
+      $(context).addClass('has-danger');
+    }
   }
 }
 
@@ -231,10 +233,10 @@ $('.search-clear').click(() => $('.form-control').val('').focus());
 /**
  * On other-artist click, load new artist page
  */
-$('.track-list-placeholder').on('click', '.other-artist', function () {
+$('.track-list-placeholder, .artist-song-audio-bar').on('click', '.other-artist', function () {
   const artist = $(this).text();
   const artistId = $(this).data('artist-id');
-  loadNewArtist(artist, this, artistId);
+  loadNewArtist(artist, null, artistId);
 });
 
 /**
@@ -297,14 +299,18 @@ function playSong(context) {
   const audioObject = new Audio(previewUrl);
   currentAudio.set(audioObject);
   audioObject.play();
-  const artists = $(context).find('.other-artist').text();
-  const songName = $(context).find('.song-name').text();
-  // Reset width or else there will be width calculation problems
-  $('.audio-bar-fluid-width').css('width', '100%');
-  $('.artist-name-audio-bar').html(`<h8 class="audio-bar-text artist-name-audio-bar-text"> &#8226 ${artists}</h8>`)
-  $('.song-name-audio-bar').html(`<h8 class="audio-bar-text">${songName} </h8>`)
+  // Grab html from song playing, then import it into audio bar
+  const audioBarText = $(context).html();
+  // Make width bigger than needed so each a tag can reach full width
+  // or else there will be width calculation problems
+  $('.audio-bar-fluid-width').css('width', '5000px');
+  $('.artist-song-audio-bar').html(`<h8 class="audio-bar-text"> ${audioBarText} </h8>`)
   // Set up horizontal scrolling for audio bar
-  const width = $('.song-name-audio-bar').outerWidth() + $('.artist-name-audio-bar').outerWidth() + 30;
+  let width = 10;
+  // Set up width by calculating width of each a tag in audio bar
+  $('.artist-song-audio-bar').find('a').each(function() {
+    width += $(this).outerWidth();
+  })
   $('.audio-bar-fluid-width').css('width', width);
   $(context).removeClass('selected');
   $(context).addClass('playing');
@@ -400,10 +406,3 @@ $(window).scroll(() => {
     $('.audio-bar').removeClass('scroll-spy-position');
   }
 });
-
-// $('.post').each(function() {
-//
-//     // const width = $('.song-name-audio-bar').outerWidth(true) + $('.artist-name-audio-bar').outerWidth(true);
-//     // $('.audio-bar-fluid-width').css('width', width);
-// });
-// $('body').css('width', width + 250);

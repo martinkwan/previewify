@@ -61,8 +61,7 @@
     <footer class="audio-bar light-box-shadow hide-this">
       <div class="audio-bar-info">
         <div class="audio-bar-fluid-width">
-          <span class="song-name-audio-bar" ></span>
-          <span class="artist-name-audio-bar" ></span>
+          <span class="artist-song-audio-bar" ></span>
         </div>
       </div>
       <span>
@@ -106,7 +105,7 @@
         <ol class="list-group track-list-ol">
           {{#each trackList}}
             <li class="list-group-item" data-track-preview={{this.trackPreview}}>
-              <a class="song-name">{{this.trackName}}</a>
+              <a class="song-name">{{this.trackName}} &#8226 </a>
               {{#each this.trackArtists}}
                 <a id = "other-artist" class="other-artist" data-artist-id= {{this.artistId}} > {{this.artistName}} </a>
               {{/each}}
