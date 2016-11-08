@@ -189,7 +189,7 @@ function formValidation(context, success) {
       $(context).removeClass('has-danger');
       $(context).addClass('has-success');
     } else {
-      $(context).removeClass('');
+      $(context).removeClass('has-success');
       $(context).addClass('has-danger');
     }
   }
@@ -221,7 +221,10 @@ function loadNewArtist(artist, context, artistId = 'none') {
 $('.search-form').submit(function (event) {
   event.preventDefault();
   $(this).find('input').blur();
-  const artist = $(this).find('input').val();
+  let artist = $(this).find('input').val();
+  // Prevent XSS
+  const re = /<(|\/|[^>\/bi]|\/[^>bi]|[^\/>][^>]+|\/[^>][^>]+)>/g;
+  artist = artist.replace(re, '&lt;$1&gt;');
   loadNewArtist(artist, this);
 });
 
