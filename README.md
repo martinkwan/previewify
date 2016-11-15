@@ -1,8 +1,8 @@
-# Artist Profile Page
+# Previewify
 
 A web application to search, view and preview artist's top songs, albums, and related artists.
 
-![Alt text](screenShot.png "Artist Profile Page")
+![Alt text](screenShot.png "Previewify")
 
 ## Installation
 - Clone down the repo
