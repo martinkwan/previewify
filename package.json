@@ -1,7 +1,7 @@
 {
-  "name": "artist-profile-page",
+  "name": "previewify",
   "version": "1.0.0",
-  "description": "My take on spotify's artist profile page",
+  "description": "A web application to search, view and preview artist's top songs, albums, and related artists.",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/martinkwan/artist-profile-page.git"
+    "url": "git+https://github.com/martinkwan/previewify.git"
   },
   "author": "Martin Kwan",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/martinkwan/artist-profile-page/issues"
+    "url": "https://github.com/martinkwan/previewify/issues"
   },
-  "homepage": "https://github.com/martinkwan/artist-profile-page#readme",
+  "homepage": "https://github.com/martinkwan/previewify#readme",
   "devDependencies": {
     "eslint": "^3.5.0",
     "eslint-config-airbnb": "^11.1.0",
