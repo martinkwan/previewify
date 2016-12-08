@@ -64,9 +64,6 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
 @media (max-width: 575px) {
   .submit-button {
     display: none; } }
-/**
- * Refactor clear button to use relative positioning later
- */
 .search-clear {
   position: absolute;
   right: 115px;
