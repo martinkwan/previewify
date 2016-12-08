@@ -20,6 +20,7 @@
 
  // Need to make body relative for scroll-spy to work
  // Need to add to body only after landing page
+ // //
 
 .make-relative {
   position:relative;
@@ -58,16 +59,16 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
 
 /**
  * =========================================
- * Nav Bar
+ * Nav Bar Nav Bar
  * =========================================
  */
 
 .btn-outline-success {
   color: $primary-color;
-}
-.btn-outline-success:hover {
-  background-color: $primary-color;
-  border-color: $primary-color;
+  &:hover {
+    background-color: $primary-color;
+    border-color: $primary-color;
+  }
 }
 
 .has-success .form-control {

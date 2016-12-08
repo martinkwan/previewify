@@ -48,15 +48,14 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
 
 /**
  * =========================================
- * Nav Bar
+ * Nav Bar Nav Bar
  * =========================================
  */
 .btn-outline-success {
   color: #1DB954; }
-
-.btn-outline-success:hover {
-  background-color: #1DB954;
-  border-color: #1DB954; }
+  .btn-outline-success:hover {
+    background-color: #1DB954;
+    border-color: #1DB954; }
 
 .has-success .form-control {
   border-color: #1DB954; }
@@ -440,5 +439,3 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
 .hvr-grow:hover, .hvr-grow:focus, .hvr-grow:active {
   -webkit-transform: scale(1.2);
   transform: scale(1.2); }
-
-/*# sourceMappingURL=main.css.map */
