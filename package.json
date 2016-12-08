@@ -27,7 +27,9 @@
     "grunt-contrib-sass": "^1.0.0",
     "grunt-contrib-cssmin": "latest",
     "grunt-contrib-uglify": "latest",
-    "grunt-contrib-watch": "latest"
+    "grunt-contrib-watch": "latest",
+    "grunt-postcss": "latest",
+    "autoprefixer": "latest"
   },
   "dependencies": {
     "express": "^4.14.0",
