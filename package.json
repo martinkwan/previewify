@@ -25,7 +25,9 @@
     "eslint-plugin-react": "^6.4.1",
     "grunt": "^1.0.1",
     "grunt-contrib-sass": "^1.0.0",
-    "grunt-contrib-watch": "^1.0.0"
+    "grunt-contrib-cssmin": "latest",
+    "grunt-contrib-uglify": "latest",
+    "grunt-contrib-watch": "latest"
   },
   "dependencies": {
     "express": "^4.14.0",
