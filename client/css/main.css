@@ -113,7 +113,6 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
   margin-top: 25px; }
 
 .cover-art-background {
-  z-index: -2;
   top: 0;
   background-repeat: no-repeat;
   background-position: 0%,0%,15%,30%,45%,60%,75%,90%,105%;
@@ -292,7 +291,6 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
   position: fixed;
   padding: 7px;
   text-align: center;
-  z-index: 1;
   bottom: 0px; }
 
 .audio-bar > span {
@@ -341,7 +339,6 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
   width: 50%; }
 
 .landing-page {
-  z-index: 1;
   top: 8vw;
   position: relative; }
 
@@ -355,8 +352,7 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
   background: #1DB954;
   width: 100%;
   margin-top: 135px;
-  padding: 5px;
-  z-index: 2; }
+  padding: 5px; }
 
 .footer-bar > span {
   color: white;
