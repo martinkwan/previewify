@@ -168,8 +168,16 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
 .playing {
   background-color: $primary-color;
   border: 4px solid $primary-color;
-  color:white;
+  color: white;
+  > #other-artist {
+    color: $faded-grey;
+    &:hover {
+      color: white;
+      border-bottom: 2px solid white;
+    }
+  }
 }
+
 .selected {
   border: 4px solid $primary-color;
 }
@@ -197,15 +205,6 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
     cursor: pointer;
     color: $primary-color;
   }
-}
-
-.playing > #other-artist {
-  color: $faded-grey;
-}
-
-.playing > #other-artist:hover {
-  color:white;
-  border-bottom: 2px solid white;
 }
 
 /**
@@ -352,11 +351,11 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
   padding: 7px;
   text-align: center;
   bottom:0px;
-}
-.audio-bar > span {
-  color: white;
-  font-size: 30px;
-  bottom:0;
+  > span {
+    color: white;
+    font-size: 30px;
+    bottom: 0;
+  }
 }
 
 .play-pause {
@@ -370,6 +369,13 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
 }
 .audio-bar-text{
   color:white;
+  > #other-artist {
+    color: $faded-grey;
+    &:hover {
+      color:white;
+      border-bottom: 2px solid white;
+    }
+  }
 }
 
 .audio-bar-info{
@@ -383,14 +389,6 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
   margin: 0 auto;
 }
 
-.audio-bar-text > #other-artist {
-  color: $faded-grey;
-}
-
-.audio-bar-text > #other-artist:hover {
-  color:white;
-  border-bottom: 2px solid white;
-}
 
 
 /**
@@ -426,10 +424,10 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
   width: 100%;
   margin-top: 135px;
   padding: 5px;
-}
-.footer-bar > span {
-  color: white;
-  font-size: 15px;
+  > span {
+    color: white;
+    font-size: 15px;
+  }
 }
 .footer-link {
   color:white;
@@ -454,18 +452,6 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
  * https://github.com/IanLunn/Hover
  /* Bob effect */
 
-@-webkit-keyframes hvr-bob {
- 0% {
-   transform: translateY(-5px);
- }
- 50% {
-   transform: translateY(-3px);
- }
- 100% {
-   transform: translateY(-5px);
- }
-}
-
 @keyframes hvr-bob {
  0% {
    transform: translateY(-5px);
@@ -473,12 +459,6 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
  50% {
    transform: translateY(-3px);
  }
- 100% {
-   transform: translateY(-5px);
- }
-}
-
-@-webkit-keyframes hvr-bob-float {
  100% {
    transform: translateY(-5px);
  }

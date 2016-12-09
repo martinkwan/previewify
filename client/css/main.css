@@ -126,6 +126,11 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
   background-color: #1DB954;
   border: 4px solid #1DB954;
   color: white; }
+  .playing > #other-artist {
+    color: #E4EDE4; }
+    .playing > #other-artist:hover {
+      color: white;
+      border-bottom: 2px solid white; }
 
 .selected {
   border: 4px solid #1DB954; }
@@ -147,13 +152,6 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
     border-bottom: 2px solid #1DB954;
     cursor: pointer;
     color: #1DB954; }
-
-.playing > #other-artist {
-  color: #E4EDE4; }
-
-.playing > #other-artist:hover {
-  color: white;
-  border-bottom: 2px solid white; }
 
 /**
  * =========================================
@@ -275,11 +273,10 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
   padding: 7px;
   text-align: center;
   bottom: 0px; }
-
-.audio-bar > span {
-  color: white;
-  font-size: 30px;
-  bottom: 0; }
+  .audio-bar > span {
+    color: white;
+    font-size: 30px;
+    bottom: 0; }
 
 .play-pause {
   margin-right: 20px;
@@ -292,6 +289,11 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
 
 .audio-bar-text {
   color: white; }
+  .audio-bar-text > #other-artist {
+    color: #E4EDE4; }
+    .audio-bar-text > #other-artist:hover {
+      color: white;
+      border-bottom: 2px solid white; }
 
 .audio-bar-info {
   width: 100%;
@@ -301,13 +303,6 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
 
 .audio-bar-fluid-width {
   margin: 0 auto; }
-
-.audio-bar-text > #other-artist {
-  color: #E4EDE4; }
-
-.audio-bar-text > #other-artist:hover {
-  color: white;
-  border-bottom: 2px solid white; }
 
 /**
  * =========================================
@@ -337,10 +332,9 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
   width: 100%;
   margin-top: 135px;
   padding: 5px; }
-
-.footer-bar > span {
-  color: white;
-  font-size: 15px; }
+  .footer-bar > span {
+    color: white;
+    font-size: 15px; }
 
 .footer-link {
   color: white;

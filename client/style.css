@@ -181,6 +181,14 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
   border: 4px solid #1DB954;
   color:white;
 }
+.playing > #other-artist {
+  color: #E4EDE4;
+}
+
+.playing > #other-artist:hover {
+  color:white;
+  border-bottom: 2px solid white;
+}
 .selected {
   border: 4px solid #1DB954;
 }
@@ -215,14 +223,6 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
   color: #1DB954;
 }
 
-.playing > #other-artist {
-  color: #E4EDE4;
-}
-
-.playing > #other-artist:hover {
-  color:white;
-  border-bottom: 2px solid white;
-}
 
 /**
  * =========================================
