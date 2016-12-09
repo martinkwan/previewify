@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="style.css" />
+    <link rel="stylesheet" type="text/css" href="css/main.min.css" />
     <title> Previewify </title>
   </head>
 
@@ -14,6 +14,8 @@
      =============================================================== -->
 
   <body>
+    <div class="cover-art-background">
+    </div>
     <!-- Nav bar -->
     <nav class="navbar hide-this">
       <form class="form-inline float-sm-right search-form has-success">
@@ -22,9 +24,6 @@
         <button class="btn btn-outline-success submit-button" type="submit">Search</button>
       </form>
     </nav>
-
-    <div class="cover-art-background">
-    </div>
 
     <!-- container holding artist profile, tracklist and album list -->
     <div class = "container">
@@ -142,7 +141,7 @@
     </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.js"></script>
-    <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+    <script src="vendors/jquery.min.js"></script>
     <script src="index.js"></script>
   </body>
 </html>

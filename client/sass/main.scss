@@ -1,9 +1,10 @@
+@import 'vars';
+@import 'mixins';
 
  //General purpose classes
 
-
- .hide-this {
-   display:none;
+.hide-this {
+  display:none;
  }
 
 .center-children {
@@ -20,60 +21,44 @@
  // Need to add to body only after landing page
 
 .make-relative {
-  position:relative;
+  position: relative;
 }
 
-body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
+body, h1, h2, h3, h4, h5, h6  {
   font-family: "Helvetica Neue", Arial, sans-serif;
-  color: #191414;
+  color: $off-black;
   height:100%;
 }
 
 .box-shadow {
-  -webkit-box-shadow: 10px 10px 15px 0px rgba(0,0,0,0.75);
-  -moz-box-shadow: 10px 10px 15px 0px rgba(0,0,0,0.75);
-  box-shadow: 10px 10px 15px 0px rgba(0,0,0,0.75);
+  box-shadow: 10px 10px 15px 0px rgba(0, 0, 0, 0.75);
 }
 
 .light-box-shadow {
-  -webkit-box-shadow: 0px -5px 10px 0px rgba(0,0,0,0.48);
-  -moz-box-shadow: 0px -5px 10px 0px rgba(0,0,0,0.48);
-  box-shadow: 0px -5px 10px 0px rgba(0,0,0,0.48);
+  box-shadow: 0px -5px 10px 0px rgba(0, 0, 0, 0.48);
 }
 
 .fa:hover {
   cursor: pointer;
 }
 
-/**
- * Class to prevent text from being selected
- */
+// Class to prevent text to be selected
 .noselect {
-  -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Chrome/Safari/Opera */
-     -khtml-user-select: none; /* Konqueror */
-       -moz-user-select: none; /* Firefox */
-        -ms-user-select: none; /* Internet Explorer/Edge */
-            user-select: none; /* Non-prefixed version, currently
-                                  not supported by any browser */
+  user-select: none;
 }
 
-/**
- * =========================================
- * Nav Bar
- * =========================================
- */
+// Nav bar
 
 .btn-outline-success {
-  color: #1DB954;
-}
-.btn-outline-success:hover {
-  background-color: #1DB954;
-  border-color: #1DB954;
+  color: $primary-color;
+  &:hover {
+    background-color: $primary-color;
+    border-color: $primary-color;
+  }
 }
 
 .has-success .form-control {
-  border-color: #1DB954;
+  border-color: $primary-color;
 }
 
 @media (max-width: 575px) {
@@ -82,19 +67,17 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
   }
 }
 
-/**
- * Refactor clear button to use relative positioning later
- */
+// Refactor clear button to use relative positioning later
 .search-clear {
-    position: absolute;
-    right: 115px;
-    top: 0;
-    bottom: 0;
-    height: 20px;
-    margin: auto;
-    font-size: 20px;
-    cursor: pointer;
-    color: #ccc;
+  position: absolute;
+  right: 115px;
+  top: 0;
+  bottom: 0;
+  height: 20px;
+  margin: auto;
+  font-size: 20px;
+  cursor: pointer;
+  color: $clear-icon-color;
 }
 
 @media (max-width: 575px) {
@@ -103,19 +86,10 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
   }
 }
 
-/**
- * =========================================
- * Artist Profile
- * =========================================
- */
+// Artist Profile
 
 .artist-profile-img {
-  width: 200px;
-  height: 200px;
-  background-size: cover;
-  background-position: center;
-  border-radius: 50%;
-  margin: 0 auto;
+  @include center-image(200px,50%);
 }
 
 .artist-name {
@@ -138,8 +112,7 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
     margin-bottom: 20px;
   }
   .artist-profile-img {
-    width: 150px;
-    height: 150px;
+    @include size(150px);
   }
 }
 
@@ -148,55 +121,45 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
 }
 
 .cover-art-background {
-  z-index: -2;
+  @include size(100%,300px);
   top:0;
   background-repeat: no-repeat;
   background-position: 0%,0%,15%,30%,45%,60%,75%,90%,105%;
-  height: 300px;
-  width: 100%;
   position: absolute;
-  -webkit-filter: blur(10px);
   filter: blur(10px);
 }
 
-/**
- * =========================================
- * Track list
- * =========================================
- */
+// Track list
 
 .list-group {
   list-style: decimal inside;
-}
-
-.list-group-item {
-  display: list-item;
+  &-item {
+    display: list-item;
+    &:hover {
+      cursor: pointer;
+      border: $border;
+    }
+  }
 }
 
 .playing {
-  background-color: #1DB954;
-  border: 4px solid #1DB954;
-  color:white;
+  background-color: $primary-color;
+  border: $border;
+  color: white;
 }
-.selected {
-  border: 4px solid #1DB954;
-}
-.list-group-item:hover {
-  cursor: pointer;
-  border: 4px solid #1DB954;
 
+.selected {
+  border: $border;
 }
 
 .track-list {
+  @include scroll;
   height: 600px;
-  overflow-y: scroll;
-  -webkit-overflow-scrolling: touch;
-
 }
 
 @media (max-width: 767px) {
   .track-list {
-    height: auto;
+    // height: auto;
     min-height: 250px;
     margin-bottom: 20px;
   }
@@ -205,35 +168,27 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
 #other-artist{
   font-size: 14px;
   color: grey;
-}
-#other-artist:hover{
-  border-bottom: 2px solid #1DB954;
-  cursor: pointer;
-  color: #1DB954;
-}
-
-.playing > #other-artist {
-  color: #E4EDE4;
-}
-
-.playing > #other-artist:hover {
-  color:white;
-  border-bottom: 2px solid white;
+  &:hover{
+    border-bottom: 2px solid $primary-color;
+    cursor: pointer;
+    color: $primary-color;
+  }
+  .audio-bar-text > &, .playing > & {
+    color: $faded-grey;
+    &:hover {
+      color: white;
+      border-bottom: $underline;
+    }
+  }
 }
 
-/**
- * =========================================
- * Album Art
- * =========================================
- */
+// Album Art
 
 .album-list-outer {
-  overflow-y: scroll;
+  @include scroll;
+  padding-top:10px;
   padding-bottom: 10px;
   margin-bottom: 20px;
-  padding-top:10px;
-  -webkit-overflow-scrolling: touch;
-
 }
 
 .album-list-container {
@@ -242,26 +197,23 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
 }
 
 .album-image {
-  width:30%;
-  height:auto;
+  @include size(30%,auto);
   margin-right: 4px;
   margin-bottom: 8px;
-}
-
-.album-image:hover {
-  cursor: pointer;
+  &:hover{
+    cursor: pointer;
+  }
 }
 
 .popular-album-image {
   background-color: white;
 }
 
-/**
- * CSS for sidescrolling albums when viewed on mobile
- */
+// CSS for sidescrolling albums when viewed on mobile
+
 @media (max-width: 767px) {
   .album-list-outer{
-    height:auto;
+    height: auto;
   }
   .album-list-inner {
     display: table-row;
@@ -278,7 +230,7 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
 }
 
 .active-album {
-  border: 4px solid #1DB954;
+  border: $border;
 }
 
 @media (min-width: 768px){
@@ -287,54 +239,42 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
   }
 }
 
-/**
- * =========================================
- * Related Artists
- * =========================================
- */
+// Related Artists
 
 .artist-list-cell {
   cursor: pointer;
 }
 
 .related-artist-img {
- width: 118px;
- height: 118px;
- background-size: cover;
- background-position: center;
- margin: 0 auto;
+  @include center-image(118px);
 }
 
-/**
-* CSS for sidescrolling albums when viewed on mobile
-*/
-.artist-list-outer{
- overflow-x: scroll;
- -webkit-overflow-scrolling: touch;
- height:auto;
- padding-top: 10px;
+// CSS for sidescrolling artists when viewed on mobile
+
+.artist-list-outer {
+  @include scroll;
+  // height: auto;
+  padding-top: 10px;
 }
 .artist-list-inner {
- display: table-row;
+  display: table-row;
 }
 .artist-list-cell {
- display: table-cell;
+  display: table-cell;
+  > span {
+    margin-right: 8px;
+  }
 }
-.artist-list-cell > span {
-  margin-right: 8px;
-}
-.artist-image {
- width: 118px;
-}
+
 .card {
   margin-bottom: 30px;
-}
-.card-text {
-  font-size: 12px;
-  text-align: center;
-}
-.card-block {
-  padding: 10px 0;
+  &-text {
+    font-size: 12px;
+    text-align: center;
+  }
+  &-block {
+    padding: 10px 0;
+  }
 }
 
 .related-artist-header {
@@ -349,29 +289,34 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
 
 .related-artist-container {
   padding-top: 30px;
-  background-color:#E4EDE4;
+  background-color:$faded-grey;
   width:100%;
 }
 
-/**
- * =========================================
- * Audio bar
- * =========================================
- */
+// Audio bar
 
-.audio-bar{
+.audio-bar {
   width:100%;
-  background: #1DB954;
+  background: $primary-color;
   position:fixed;
   padding: 7px;
   text-align: center;
-  z-index:1;
   bottom:0px;
-}
-.audio-bar > span {
-  color: white;
-  font-size: 30px;
-  bottom:0;
+  > span {
+    color: white;
+    font-size: 30px;
+    bottom: 0;
+  }
+  &-text {
+    color:white;
+  }
+  &-info {
+    @include scroll;
+    height:30px;
+  }
+  &-fluid-width {
+    margin: 0 auto;
+  }
 }
 
 .play-pause {
@@ -380,172 +325,94 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
   font-size: 70px;
 }
 .scroll-spy-position {
-  bottom:-137px;
+  bottom: -137px;
   position: absolute;
 }
-.audio-bar-text{
-  color:white;
-}
 
-.audio-bar-info{
-  width:100%;
-  height:30px;
-  overflow-x:scroll;
-  -webkit-overflow-scrolling: touch;
-}
-
-.audio-bar-fluid-width {
-  margin: 0 auto;
-}
-
-.audio-bar-text > #other-artist {
-  color: #E4EDE4;
-}
-
-.audio-bar-text > #other-artist:hover {
-  color:white;
-  border-bottom: 2px solid white;
-}
-
-
-/**
- * =========================================
- * Landing Page
- * =========================================
- */
-
-.landing-page-title{
-  margin-bottom: 36px;
-}
-
-.landing-page-search {
-  display:inline;
-  width: 50%;
-}
+// Landing Page
 
 .landing-page {
-  z-index: 1;
+  z-index: $z-landing-page;
   top: 8vw;
   position: relative;
+  &-title {
+    margin-bottom: 36px;
+  }
+  &-search {
+    display:inline;
+    width: 50%;
+  }
 }
 
-/**
- * =========================================
- * Footer
- * =========================================
- */
+// Footer
 
 .footer-bar {
   position: absolute;
-  background: #1DB954;
+  background: $primary-color;
   width: 100%;
   margin-top: 135px;
   padding: 5px;
-  z-index: 2;
-}
-.footer-bar > span {
   color: white;
   font-size: 15px;
 }
 .footer-link {
   color:white;
   margin-left: 5px;
-}
-.footer-link:hover, .footer-link:active{
-  color:black;
-  text-decoration: none;
+  &:hover, &:active {
+    color:white;
+    text-decoration: none;
+    border-bottom: $underline;
+  }
 }
 .footer-position {
   bottom: 0;
 }
 
-/**
- * =========================================
- * Animations
- * =========================================
- */
-
-/**
- * Taken from hover.css
- * https://github.com/IanLunn/Hover
- /* Bob effect */
-
-@-webkit-keyframes hvr-bob {
- 0% {
-   -webkit-transform: translateY(-5px);
-   transform: translateY(-5px);
- }
- 50% {
-   -webkit-transform: translateY(-3px);
-   transform: translateY(-3px);
- }
- 100% {
-   -webkit-transform: translateY(-5px);
-   transform: translateY(-5px);
- }
-}
+// Animations
+// Taken from hover.css
+// https://github.com/IanLunn/Hover
+// Bob effect
 
 @keyframes hvr-bob {
- 0% {
-   -webkit-transform: translateY(-5px);
-   transform: translateY(-5px);
- }
- 50% {
-   -webkit-transform: translateY(-3px);
-   transform: translateY(-3px);
- }
- 100% {
-   -webkit-transform: translateY(-5px);
-   transform: translateY(-5px);
- }
-}
-
-@-webkit-keyframes hvr-bob-float {
- 100% {
-   -webkit-transform: translateY(-5px);
-   transform: translateY(-5px);
- }
+  0% {
+    transform: translateY(-5px);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+  100% {
+    transform: translateY(-5px);
+  }
 }
 
 @keyframes hvr-bob-float {
- 100% {
-   -webkit-transform: translateY(-5px);
-   transform: translateY(-5px);
- }
+  100% {
+    transform: translateY(-5px);
+  }
 }
 
 .hvr-bob:hover,
 .hvr-bob:focus,
 .hvr-bob:active {
- -webkit-animation-name: hvr-bob-float, hvr-bob;
- animation-name: hvr-bob-float, hvr-bob;
- -webkit-animation-duration: .3s, 1.5s;
- animation-duration: .3s, 1.5s;
- -webkit-animation-delay: 0s, .3s;
- animation-delay: 0s, .3s;
- -webkit-animation-timing-function: ease-out, ease-in-out;
- animation-timing-function: ease-out, ease-in-out;
- -webkit-animation-iteration-count: 1, infinite;
- animation-iteration-count: 1, infinite;
- -webkit-animation-fill-mode: forwards;
- animation-fill-mode: forwards;
- -webkit-animation-direction: normal, alternate;
- animation-direction: normal, alternate;
+  animation-name: hvr-bob-float, hvr-bob;
+  animation-duration: .3s, 1.5s;
+  animation-delay: 0s, .3s;
+  animation-timing-function: ease-out, ease-in-out;
+  animation-iteration-count: 1, infinite;
+  animation-fill-mode: forwards;
+  animation-direction: normal, alternate;
 }
 
-/* Grow */
+// Grow effect
+
 .hvr-grow {
   display: inline-block;
   vertical-align: middle;
-  -webkit-transform: perspective(1px) translateZ(0);
   transform: perspective(1px) translateZ(0);
   box-shadow: 0 0 1px transparent;
-  -webkit-transition-duration: 0.3s;
   transition-duration: 0.3s;
-  -webkit-transition-property: transform;
   transition-property: transform;
-}
-.hvr-grow:hover, .hvr-grow:focus, .hvr-grow:active {
-  -webkit-transform: scale(1.2);
-  transform: scale(1.2);
+  &:hover, &:focus, &:active {
+    transform: scale(1.2);
+  }
 }
