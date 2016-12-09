@@ -2,3 +2,18 @@
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
 }
+
+@mixin size($width, $height: $width) {
+  width: $width;
+  height: $height;
+}
+
+@mixin center-image ($size, $border-radius:false) {
+  @include size($size);
+  background-size: cover;
+  background-position: center;
+  margin: 0 auto;
+  @if $border-radius {
+    border-radius: $border-radius;
+  }
+}

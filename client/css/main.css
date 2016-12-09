@@ -61,8 +61,8 @@ body, h1, h2, h3, h4, h5, h6 {
   height: 200px;
   background-size: cover;
   background-position: center;
-  border-radius: 50%;
-  margin: 0 auto; }
+  margin: 0 auto;
+  border-radius: 50%; }
 
 .artist-name {
   font-size: 4vw;
@@ -86,11 +86,11 @@ body, h1, h2, h3, h4, h5, h6 {
   margin-top: 25px; }
 
 .cover-art-background {
+  width: 100%;
+  height: 300px;
   top: 0;
   background-repeat: no-repeat;
   background-position: 0%,0%,15%,30%,45%,60%,75%,90%,105%;
-  height: 300px;
-  width: 100%;
   position: absolute;
   -webkit-filter: blur(10px);
           filter: blur(10px); }
@@ -112,13 +112,12 @@ body, h1, h2, h3, h4, h5, h6 {
   border: 4px solid #1DB954; }
 
 .track-list {
-  height: 600px;
   overflow-y: scroll;
-  -webkit-overflow-scrolling: touch; }
+  -webkit-overflow-scrolling: touch;
+  height: 600px; }
 
 @media (max-width: 767px) {
   .track-list {
-    height: auto;
     min-height: 250px;
     margin-bottom: 20px; } }
 #other-artist {
@@ -137,9 +136,9 @@ body, h1, h2, h3, h4, h5, h6 {
 .album-list-outer {
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
+  padding-top: 10px;
   padding-bottom: 10px;
-  margin-bottom: 20px;
-  padding-top: 10px; }
+  margin-bottom: 20px; }
 
 .album-list-container {
   height: 600px;
@@ -190,7 +189,6 @@ body, h1, h2, h3, h4, h5, h6 {
 .artist-list-outer {
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
-  height: auto;
   padding-top: 10px; }
 
 .artist-list-inner {
@@ -200,9 +198,6 @@ body, h1, h2, h3, h4, h5, h6 {
   display: table-cell; }
   .artist-list-cell > span {
     margin-right: 8px; }
-
-.artist-image {
-  width: 118px; }
 
 .card {
   margin-bottom: 30px; }
@@ -237,9 +232,9 @@ body, h1, h2, h3, h4, h5, h6 {
   .audio-bar-text {
     color: white; }
   .audio-bar-info {
-    height: 30px;
     overflow-y: scroll;
-    -webkit-overflow-scrolling: touch; }
+    -webkit-overflow-scrolling: touch;
+    height: 30px; }
   .audio-bar-fluid-width {
     margin: 0 auto; }
 
