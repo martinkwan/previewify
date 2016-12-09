@@ -3,9 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="css/main.min.css" />
+    <link rel="stylesheet" href="vendors/font-awesome.min.css" />
+    <link rel="stylesheet" href="vendors/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/main.min.css" />
     <title> Previewify </title>
   </head>
 
@@ -63,10 +63,10 @@
           <span class="artist-song-audio-bar" ></span>
         </div>
       </div>
-      <span>
-        <i class="noselect fa fa-step-backward hvr-grow audio-controls"></i>
-        <i class="noselect fa fa-play-circle-o play-pause hvr-grow audio-controls"></i>
-        <i class="noselect fa fa-step-forward hvr-grow audio-controls"></i>
+      <span class="noselect">
+        <i class="fa fa-step-backward hvr-grow"></i>
+        <i class="fa fa-play-circle-o play-pause hvr-grow"></i>
+        <i class="fa fa-step-forward hvr-grow"></i>
       </span>
     </footer>
 
@@ -139,8 +139,7 @@
       </span>
       {{/each}}
     </script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.js"></script>
+    <script src="vendors/handlebars.min.js"></script>
     <script src="vendors/jquery.min.js"></script>
     <script src="index.js"></script>
   </body>
