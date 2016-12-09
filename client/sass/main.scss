@@ -22,10 +22,10 @@
  // Need to add to body only after landing page
 
 .make-relative {
-  position:relative;
+  position: relative;
 }
 
-body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
+body, h1, h2, h3, h4, h5, h6  {
   font-family: "Helvetica Neue", Arial, sans-serif;
   color: $off-black;
   height:100%;
@@ -43,18 +43,12 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
   cursor: pointer;
 }
 
-/**
- * Class to prevent text from being selected
- */
+// Class to prevent text to be selected
 .noselect {
   user-select: none;
 }
 
-/**
- * =========================================
- * Nav Bar
- * =========================================
- */
+// Nav bar
 
 .btn-outline-success {
   color: $primary-color;
@@ -93,11 +87,7 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
   }
 }
 
-/**
- * =========================================
- * Artist Profile
- * =========================================
- */
+// Artist Profile
 
 .artist-profile-img {
   width: 200px;
@@ -147,46 +137,32 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
   filter: blur(10px);
 }
 
-/**
- * =========================================
- * Track list
- * =========================================
- */
+// Track list
 
 .list-group {
   list-style: decimal inside;
-}
-
-.list-group-item {
-  display: list-item;
-  &:hover{
-    cursor: pointer;
-    border: 4px solid $primary-color;
+  &-item {
+    display: list-item;
+    &:hover{
+      cursor: pointer;
+      border: $border;
+    }
   }
 }
 
 .playing {
   background-color: $primary-color;
-  border: 4px solid $primary-color;
+  border: $border;
   color: white;
-  > #other-artist {
-    color: $faded-grey;
-    &:hover {
-      color: white;
-      border-bottom: 2px solid white;
-    }
-  }
 }
 
 .selected {
-  border: 4px solid $primary-color;
+  border: $border;
 }
 
 .track-list {
   height: 600px;
-  overflow-y: scroll;
-  -webkit-overflow-scrolling: touch;
-
+  @include scroll;
 }
 
 @media (max-width: 767px) {
@@ -205,21 +181,22 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
     cursor: pointer;
     color: $primary-color;
   }
+  .audio-bar-text > &, .playing > & {
+    color: $faded-grey;
+    &:hover {
+      color: white;
+      border-bottom: $underline;
+    }
+  }
 }
 
-/**
- * =========================================
- * Album Art
- * =========================================
- */
+// Album Art
 
 .album-list-outer {
-  overflow-y: scroll;
+  @include scroll;
   padding-bottom: 10px;
   margin-bottom: 20px;
   padding-top:10px;
-  -webkit-overflow-scrolling: touch;
-
 }
 
 .album-list-container {
@@ -241,9 +218,9 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
   background-color: white;
 }
 
-/**
- * CSS for sidescrolling albums when viewed on mobile
- */
+
+// CSS for sidescrolling albums when viewed on mobile
+
 @media (max-width: 767px) {
   .album-list-outer{
     height:auto;
@@ -263,7 +240,7 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
 }
 
 .active-album {
-  border: 4px solid $primary-color;
+  border: $border;
 }
 
 @media (min-width: 768px){
@@ -272,54 +249,49 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
   }
 }
 
-/**
- * =========================================
- * Related Artists
- * =========================================
- */
+// Related Artists
 
 .artist-list-cell {
   cursor: pointer;
 }
 
 .related-artist-img {
- width: 118px;
- height: 118px;
- background-size: cover;
- background-position: center;
- margin: 0 auto;
+  width: 118px;
+  height: 118px;
+  background-size: cover;
+  background-position: center;
+  margin: 0 auto;
 }
 
-/**
-* CSS for sidescrolling albums when viewed on mobile
-*/
+
+// CSS for sidescrolling albums when viewed on mobile
+
 .artist-list-outer{
- overflow-x: scroll;
- -webkit-overflow-scrolling: touch;
- height:auto;
- padding-top: 10px;
+  @include scroll;
+  height: auto;
+  padding-top: 10px;
 }
 .artist-list-inner {
- display: table-row;
+  display: table-row;
 }
 .artist-list-cell {
- display: table-cell;
-}
-.artist-list-cell > span {
-  margin-right: 8px;
+  display: table-cell;
+  > span {
+    margin-right: 8px;
+  }
 }
 .artist-image {
- width: 118px;
+  width: 118px;
 }
 .card {
   margin-bottom: 30px;
-}
-.card-text {
-  font-size: 12px;
-  text-align: center;
-}
-.card-block {
-  padding: 10px 0;
+  &-text{
+    font-size: 12px;
+    text-align: center;
+  }
+  &-block{
+    padding: 10px 0;
+  }
 }
 
 .related-artist-header {
@@ -338,11 +310,7 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
   width:100%;
 }
 
-/**
- * =========================================
- * Audio bar
- * =========================================
- */
+// Audio bar
 
 .audio-bar{
   width:100%;
@@ -356,6 +324,16 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
     font-size: 30px;
     bottom: 0;
   }
+  &-text{
+    color:white;
+  }
+  &-info{
+    height:30px;
+    @include scroll;
+  }
+  &-fluid-width{
+    margin: 0 auto;
+    }
 }
 
 .play-pause {
@@ -364,59 +342,26 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
   font-size: 70px;
 }
 .scroll-spy-position {
-  bottom:-137px;
+  bottom: -137px;
   position: absolute;
 }
-.audio-bar-text{
-  color:white;
-  > #other-artist {
-    color: $faded-grey;
-    &:hover {
-      color:white;
-      border-bottom: 2px solid white;
-    }
-  }
-}
 
-.audio-bar-info{
-  width:100%;
-  height:30px;
-  overflow-x:scroll;
-  -webkit-overflow-scrolling: touch;
-}
-
-.audio-bar-fluid-width {
-  margin: 0 auto;
-}
-
-
-
-/**
- * =========================================
- * Landing Page
- * =========================================
- */
-
-.landing-page-title{
-  margin-bottom: 36px;
-}
-
-.landing-page-search {
-  display:inline;
-  width: 50%;
-}
+// Landing Page
 
 .landing-page {
   z-index: $z-landing-page;
   top: 8vw;
   position: relative;
+  &-title{
+    margin-bottom: 36px;
+  }
+  &-search{
+    display:inline;
+    width: 50%;
+  }
 }
 
-/**
- * =========================================
- * Footer
- * =========================================
- */
+// Footer
 
 .footer-bar {
   position: absolute;
@@ -424,33 +369,26 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
   width: 100%;
   margin-top: 135px;
   padding: 5px;
-  > span {
-    color: white;
-    font-size: 15px;
-  }
+  color: white;
+  font-size: 15px;
 }
 .footer-link {
   color:white;
   margin-left: 5px;
-}
-.footer-link:hover, .footer-link:active{
-  color:black;
-  text-decoration: none;
+  &:hover, &:active {
+    color:white;
+    text-decoration: none;
+    border-bottom: $underline;
+  }
 }
 .footer-position {
   bottom: 0;
 }
 
-/**
- * =========================================
- * Animations
- * =========================================
- */
-
-/**
- * Taken from hover.css
- * https://github.com/IanLunn/Hover
- /* Bob effect */
+// Animations
+// Taken from hover.css
+// https://github.com/IanLunn/Hover
+// Bob effect
 
 @keyframes hvr-bob {
  0% {
@@ -482,7 +420,8 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
  animation-direction: normal, alternate;
 }
 
-/* Grow */
+// Grow effect
+
 .hvr-grow {
   display: inline-block;
   vertical-align: middle;
@@ -490,7 +429,7 @@ body, .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6  {
   box-shadow: 0 0 1px transparent;
   transition-duration: 0.3s;
   transition-property: transform;
-}
-.hvr-grow:hover, .hvr-grow:focus, .hvr-grow:active {
-  transform: scale(1.2);
+  &:hover, &:focus, &:active {
+    transform: scale(1.2);
+  }
 }
