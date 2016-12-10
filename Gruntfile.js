@@ -10,7 +10,7 @@ module.exports = (grunt) => {
         },
       },
     },
-    postcss: { // Begin Post CSS Plugin
+    postcss: {
       options: {
         map: true,
         processors: [
@@ -66,5 +66,4 @@ module.exports = (grunt) => {
   // Register Grunt tasks
   grunt.registerTask('default', ['watch']);
   grunt.registerTask('build', ['sass', 'postcss', 'cssmin']);
-  grunt.registerTask('runSass', ['sass']);
 };

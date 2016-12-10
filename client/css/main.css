@@ -12,6 +12,7 @@ body, h1, h2, h3, h4, h5, h6 {
 @media (min-width: 768px) {
   .bottom-half {
     margin-top: 60px; } }
+
 .make-relative {
   position: relative; }
 
@@ -42,6 +43,7 @@ body, h1, h2, h3, h4, h5, h6 {
 @media (max-width: 575px) {
   .submit-button {
     display: none; } }
+
 .search-clear {
   position: absolute;
   right: 115px;
@@ -56,6 +58,7 @@ body, h1, h2, h3, h4, h5, h6 {
 @media (max-width: 575px) {
   .search-clear {
     right: 30px; } }
+
 .artist-profile-img {
   width: 200px;
   height: 200px;
@@ -80,6 +83,7 @@ body, h1, h2, h3, h4, h5, h6 {
 @media (max-width: 480px) {
   .album-name {
     font-size: 18px; } }
+
 .artist-profile-placeholder {
   margin-top: 25px; }
 
@@ -166,10 +170,10 @@ body, h1, h2, h3, h4, h5, h6 {
 @media (max-width: 767px) {
   .album-list-inner {
     display: table-row; }
-
   .album-list-cell {
     display: table-cell;
     cursor: pointer; } }
+
 .active-album {
   border: 4px solid #1DB954; }
 
@@ -273,36 +277,68 @@ body, h1, h2, h3, h4, h5, h6 {
     display: inline;
     width: 50%; }
 
+@-webkit-keyframes hvr-bob {
+  0% {
+    -webkit-transform: translateY(-5px);
+            transform: translateY(-5px); }
+  50% {
+    -webkit-transform: translateY(-3px);
+            transform: translateY(-3px); }
+  100% {
+    -webkit-transform: translateY(-5px);
+            transform: translateY(-5px); } }
+
 @keyframes hvr-bob {
   0% {
-    transform: translateY(-5px); }
+    -webkit-transform: translateY(-5px);
+            transform: translateY(-5px); }
   50% {
-    transform: translateY(-3px); }
+    -webkit-transform: translateY(-3px);
+            transform: translateY(-3px); }
   100% {
-    transform: translateY(-5px); } }
+    -webkit-transform: translateY(-5px);
+            transform: translateY(-5px); } }
+
+@-webkit-keyframes hvr-bob-float {
+  100% {
+    -webkit-transform: translateY(-5px);
+            transform: translateY(-5px); } }
+
 @keyframes hvr-bob-float {
   100% {
-    transform: translateY(-5px); } }
+    -webkit-transform: translateY(-5px);
+            transform: translateY(-5px); } }
+
 .hvr-bob:hover,
 .hvr-bob:focus,
 .hvr-bob:active {
-  animation-name: hvr-bob-float, hvr-bob;
-  animation-duration: .3s, 1.5s;
-  animation-delay: 0s, .3s;
-  animation-timing-function: ease-out, ease-in-out;
-  animation-iteration-count: 1, infinite;
-  animation-fill-mode: forwards;
-  animation-direction: normal, alternate; }
+  -webkit-animation-name: hvr-bob-float, hvr-bob;
+          animation-name: hvr-bob-float, hvr-bob;
+  -webkit-animation-duration: .3s, 1.5s;
+          animation-duration: .3s, 1.5s;
+  -webkit-animation-delay: 0s, .3s;
+          animation-delay: 0s, .3s;
+  -webkit-animation-timing-function: ease-out, ease-in-out;
+          animation-timing-function: ease-out, ease-in-out;
+  -webkit-animation-iteration-count: 1, infinite;
+          animation-iteration-count: 1, infinite;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
+  -webkit-animation-direction: normal, alternate;
+          animation-direction: normal, alternate; }
 
 .hvr-grow {
   display: inline-block;
   vertical-align: middle;
-  transform: perspective(1px) translateZ(0);
+  -webkit-transform: perspective(1px) translateZ(0);
+          transform: perspective(1px) translateZ(0);
   box-shadow: 0 0 1px transparent;
-  transition-duration: 0.3s;
-  transition-property: transform; }
+  -webkit-transition-duration: 0.3s;
+          transition-duration: 0.3s;
+  -webkit-transition-property: -webkit-transform;
+  transition-property: -webkit-transform;
+  transition-property: transform;
+  transition-property: transform, -webkit-transform; }
   .hvr-grow:hover, .hvr-grow:focus, .hvr-grow:active {
-    -ms-transform: scale(1.2);
-        transform: scale(1.2); }
-
-/*# sourceMappingURL=main.css.map */
+    -webkit-transform: scale(1.2);
+            transform: scale(1.2); }

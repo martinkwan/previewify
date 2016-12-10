@@ -29,7 +29,13 @@
     "grunt-contrib-uglify": "latest",
     "grunt-contrib-watch": "latest",
     "grunt-postcss": "latest",
-    "autoprefixer": "latest"
+    "autoprefixer": "latest",
+    "gulp": "latest",
+    "gulp-sass": "latest",
+    "gulp-clean-css": "latest",
+    "gulp-rename": "latest",
+    "gulp-autoprefixer": "latest",
+    "gulp-sourcemaps": "latest"
   },
   "dependencies": {
     "express": "^4.14.0",
