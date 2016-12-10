@@ -48,5 +48,6 @@
   }
   .#{$name}-list-cell{
     display: table-cell;
+    cursor: pointer;
   }
 }

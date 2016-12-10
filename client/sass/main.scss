@@ -38,7 +38,7 @@ body, h1, h2, h3, h4, h5, h6  {
   box-shadow: 0px -5px 10px 0px rgba(0, 0, 0, 0.48);
 }
 
-.fa:hover {
+.fa {
   cursor: pointer;
 }
 
@@ -114,17 +114,6 @@ body, h1, h2, h3, h4, h5, h6  {
   }
 }
 
-// @media (max-width: 767px) {
-//   .artist-name {
-//     font-size: 22px;
-//     margin-top: 20px;
-//     margin-bottom: 20px;
-//   }
-//   .artist-profile-img {
-//     @include size(150px);
-//   }
-// }
-
 .artist-profile-placeholder {
   margin-top: 25px;
 }
@@ -144,8 +133,8 @@ body, h1, h2, h3, h4, h5, h6  {
   list-style: decimal inside;
   &-item {
     display: list-item;
+    cursor: pointer;
     &:hover {
-      cursor: pointer;
       border: $border;
     }
   }
@@ -175,9 +164,9 @@ body, h1, h2, h3, h4, h5, h6  {
 #other-artist{
   font-size: 14px;
   color: grey;
+  cursor: pointer;
   &:hover{
     border-bottom: 2px solid $primary-color;
-    cursor: pointer;
     color: $primary-color;
   }
   .audio-bar-text > &, .playing > & {
@@ -227,38 +216,13 @@ body, h1, h2, h3, h4, h5, h6  {
 
 @media (max-width: 767px) {
   @include sidescroll-setup('album');
-  // .album-list-outer{
-  //   height: auto;
-  // }
-  // .album-list-inner {
-  //   display: table-row;
-  // }
-  // .album-list-cell {
-  //   display: table-cell;
-  // }
-  // .album-image {
-  //   width: 118px;
-  // }
-  // .album-list-container {
-  //   padding-left: 0;
-  // }
 }
 
 .active-album {
   border: $border;
 }
 
-// @media (min-width: 768px){
-//   .album-list-outer {
-//     margin-top: 38px;
-//   }
-// }
-
 // Related Artists
-
-.artist-list-cell {
-  cursor: pointer;
-}
 
 .related-artist-img {
   @include center-image(118px);
@@ -273,15 +237,9 @@ body, h1, h2, h3, h4, h5, h6  {
   // height: auto;
   padding-top: 10px;
 }
-// .artist-list-inner {
-//   display: table-row;
-// }
-.artist-list-cell {
-  // display: table-cell;
-  // cursor: pointer;
-  > span {
-    margin-right: 8px;
-  }
+
+.artist-list-cell > span {
+  margin-right: 8px;
 }
 
 .card {
@@ -302,11 +260,6 @@ body, h1, h2, h3, h4, h5, h6  {
   }
 }
 
-// @media (max-width: 480px){
-//   .related-artist-header {
-//     font-size: 18px;
-//   }
-// }
 
 .related-artist-container {
   padding-top: 30px;
