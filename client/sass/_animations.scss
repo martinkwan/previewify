@@ -1,0 +1,48 @@
+// Animations
+// Taken from hover.css
+// https://github.com/IanLunn/Hover
+// Bob effect
+
+@keyframes hvr-bob {
+  0% {
+    transform: translateY(-5px);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+  100% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes hvr-bob-float {
+  100% {
+    transform: translateY(-5px);
+  }
+}
+
+.hvr-bob:hover,
+.hvr-bob:focus,
+.hvr-bob:active {
+  animation-name: hvr-bob-float, hvr-bob;
+  animation-duration: .3s, 1.5s;
+  animation-delay: 0s, .3s;
+  animation-timing-function: ease-out, ease-in-out;
+  animation-iteration-count: 1, infinite;
+  animation-fill-mode: forwards;
+  animation-direction: normal, alternate;
+}
+
+// Grow effect
+
+.hvr-grow {
+  display: inline-block;
+  vertical-align: middle;
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px transparent;
+  transition-duration: 0.3s;
+  transition-property: transform;
+  &:hover, &:focus, &:active {
+    transform: scale(1.2);
+  }
+}

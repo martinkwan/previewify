@@ -1,0 +1,35 @@
+// Audio bar
+
+.audio-bar {
+  width:100%;
+  background: $primary-color;
+  position:fixed;
+  padding: 7px;
+  text-align: center;
+  bottom:0px;
+  > span {
+    color: white;
+    font-size: 30px;
+    bottom: 0;
+  }
+  &-text {
+    color:white;
+  }
+  &-info {
+    @include scroll;
+    height:30px;
+  }
+  &-fluid-width {
+    margin: 0 auto;
+  }
+}
+
+.play-pause {
+  margin-right: 20px;
+  margin-left: 20px;
+  font-size: 70px;
+}
+.scroll-spy-position {
+  bottom: -137px;
+  position: absolute;
+}

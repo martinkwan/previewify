@@ -1,0 +1,37 @@
+// Artist profile
+
+.artist-profile-img {
+  @include center-image(200px,50%);
+  @include mobile {
+    @include size(150px);
+  }
+}
+
+.artist-name {
+  @include mobile{
+    font-size: 22px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  font-size: 4vw;
+  color: white;
+}
+
+@media (max-width: 480px) {
+  .album-name {
+    font-size: 18px;
+  }
+}
+
+.artist-profile-placeholder {
+  margin-top: 25px;
+}
+
+.cover-art-background {
+  @include size(100%,300px);
+  top:0;
+  background-repeat: no-repeat;
+  background-position: 0%,0%,15%,30%,45%,60%,75%,90%,105%;
+  position: absolute;
+  filter: blur(10px);
+}

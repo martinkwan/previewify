@@ -1,0 +1,41 @@
+// Related Artists
+
+// CSS for sidescrolling artists
+@include sidescroll-setup('artist');
+
+.artist-list-outer {
+  @include scroll;
+  padding-top: 10px;
+}
+
+.artist-list-cell > span {
+  margin-right: 8px;
+}
+
+.card {
+  margin-bottom: 30px;
+  &-text {
+    font-size: 12px;
+    text-align: center;
+  }
+  &-block {
+    padding: 10px 0;
+  }
+}
+
+.related-artist-img {
+  @include center-image(118px);
+}
+
+.related-artist-header {
+  margin: 30px 0;
+  @media (max-width:480px){
+    font-size: 18px;
+  }
+}
+
+.related-artist-container {
+  padding-top: 30px;
+  background-color:$faded-grey;
+  width:100%;
+}

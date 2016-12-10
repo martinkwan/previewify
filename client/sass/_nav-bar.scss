@@ -1,0 +1,38 @@
+// Nav bar
+
+.btn-outline-success {
+  color: $primary-color;
+  &:hover {
+    background-color: $primary-color;
+    border-color: $primary-color;
+  }
+}
+
+.has-success .form-control {
+  border-color: $primary-color;
+}
+
+@media (max-width: 575px) {
+  .submit-button {
+    display: none;
+  }
+}
+
+// Refactor clear button to use relative positioning later
+.search-clear {
+  position: absolute;
+  right: 115px;
+  top: 0;
+  bottom: 0;
+  height: 20px;
+  margin: auto;
+  font-size: 20px;
+  cursor: pointer;
+  color: $clear-icon-color;
+}
+
+@media (max-width: 575px) {
+  .search-clear {
+    right: 30px;
+  }
+}

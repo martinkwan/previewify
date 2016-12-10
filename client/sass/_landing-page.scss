@@ -1,0 +1,14 @@
+// Landing Page
+
+.landing-page {
+  z-index: $z-landing-page;
+  top: 8vw;
+  position: relative;
+  &-title {
+    margin-bottom: 36px;
+  }
+  &-search {
+    display:inline;
+    width: 50%;
+  }
+}

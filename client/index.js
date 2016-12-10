@@ -170,7 +170,7 @@ function getRelatedArtists(artistId) {
   $.get('/relatedArtists', { artistId }, (artistResults) => {
     const relatedArtists = JSON.parse(artistResults).artists.map((artist) => {
       // If there is no artistImg, assign a default imgUrl
-      const artistImg = artist.images.length > 1 ? `background-image:url(${artist.images[1].url})`
+      const artistImg = artist.images.length > 1 ? `background-image:url(${artist.images[2].url})`
                                                  : 'background-image:url(https://i.scdn.co/image/907e87639091f8805c48681d9e7f144dedf53741)';
       return { artistId: artist.id, artistName: artist.name, artistImg };
     });
@@ -311,7 +311,7 @@ function playSong(context) {
   // Set up horizontal scrolling for audio bar
   let width = 10;
   // Set up width by calculating width of each a tag in audio bar
-  $('.artist-song-audio-bar').find('a').each(function() {
+  $('.artist-song-audio-bar').find('a').each(function () {
     width += $(this).outerWidth();
   })
   $('.audio-bar-fluid-width').css('width', width);

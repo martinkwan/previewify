@@ -1,0 +1,50 @@
+// Track list
+
+.list-group {
+  list-style: decimal inside;
+  &-item {
+    display: list-item;
+    cursor: pointer;
+    &:hover {
+      border: $border;
+    }
+  }
+}
+
+.playing {
+  background-color: $primary-color;
+  border: $border;
+  color: white;
+}
+
+.selected {
+  border: $border;
+}
+
+.track-list {
+  @include scroll;
+  @include mobile {
+    min-height: 250px;
+    margin-bottom: 20px;
+  }
+  @include not-mobile{
+    height: 600px;
+  }
+}
+
+#other-artist{
+  font-size: 14px;
+  color: grey;
+  cursor: pointer;
+  &:hover{
+    border-bottom: 2px solid $primary-color;
+    color: $primary-color;
+  }
+  .audio-bar-text > &, .playing > & {
+    color: $faded-grey;
+    &:hover {
+      color: white;
+      border-bottom: $underline;
+    }
+  }
+}
