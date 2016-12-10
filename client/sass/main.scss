@@ -38,7 +38,7 @@ body, h1, h2, h3, h4, h5, h6  {
   box-shadow: 0px -5px 10px 0px rgba(0, 0, 0, 0.48);
 }
 
-.fa:hover {
+.fa {
   cursor: pointer;
 }
 
@@ -90,9 +90,17 @@ body, h1, h2, h3, h4, h5, h6  {
 
 .artist-profile-img {
   @include center-image(200px,50%);
+  @include mobile {
+    @include size(150px);
+  }
 }
 
 .artist-name {
+  @include mobile{
+    font-size: 22px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
   font-size: 4vw;
   color: white;
 }
@@ -103,16 +111,6 @@ body, h1, h2, h3, h4, h5, h6  {
   }
   .album-name {
     font-size: 18px;
-  }
-}
-
-@media (max-width: 767px) {
-  .artist-name {
-    margin-top: 20px;
-    margin-bottom: 20px;
-  }
-  .artist-profile-img {
-    @include size(150px);
   }
 }
 
@@ -135,8 +133,8 @@ body, h1, h2, h3, h4, h5, h6  {
   list-style: decimal inside;
   &-item {
     display: list-item;
+    cursor: pointer;
     &:hover {
-      cursor: pointer;
       border: $border;
     }
   }
@@ -154,23 +152,21 @@ body, h1, h2, h3, h4, h5, h6  {
 
 .track-list {
   @include scroll;
-  height: 600px;
-}
-
-@media (max-width: 767px) {
-  .track-list {
-    // height: auto;
+  @include mobile {
     min-height: 250px;
     margin-bottom: 20px;
   }
-
+  @include not-mobile{
+    height: 600px;
+  }
 }
+
 #other-artist{
   font-size: 14px;
   color: grey;
+  cursor: pointer;
   &:hover{
     border-bottom: 2px solid $primary-color;
-    cursor: pointer;
     color: $primary-color;
   }
   .audio-bar-text > &, .playing > & {
@@ -186,23 +182,30 @@ body, h1, h2, h3, h4, h5, h6  {
 
 .album-list-outer {
   @include scroll;
+  @include not-mobile {
+    margin-top: 38px;
+  }
   padding-top:10px;
   padding-bottom: 10px;
   margin-bottom: 20px;
 }
 
 .album-list-container {
-  height: 600px;
+  @include not-mobile{
+    padding-left: 0;
+    height: 600px;
+  }
   padding-bottom: 20px;
 }
 
 .album-image {
   @include size(30%,auto);
+  @include mobile{
+    width: 118px;
+  }
   margin-right: 4px;
   margin-bottom: 8px;
-  &:hover{
-    cursor: pointer;
-  }
+  cursor: pointer;
 }
 
 .popular-album-image {
@@ -212,58 +215,31 @@ body, h1, h2, h3, h4, h5, h6  {
 // CSS for sidescrolling albums when viewed on mobile
 
 @media (max-width: 767px) {
-  .album-list-outer{
-    height: auto;
-  }
-  .album-list-inner {
-    display: table-row;
-  }
-  .album-list-cell {
-    display: table-cell;
-  }
-  .album-image {
-    width: 118px;
-  }
-  .album-list-container {
-    padding-left: 0;
-  }
+  @include sidescroll-setup('album');
 }
 
 .active-album {
   border: $border;
 }
 
-@media (min-width: 768px){
-  .album-list-outer {
-    margin-top: 38px;
-  }
-}
-
 // Related Artists
-
-.artist-list-cell {
-  cursor: pointer;
-}
 
 .related-artist-img {
   @include center-image(118px);
 }
 
-// CSS for sidescrolling artists when viewed on mobile
+// CSS for sidescrolling artists
+
+@include sidescroll-setup('artist');
 
 .artist-list-outer {
   @include scroll;
   // height: auto;
   padding-top: 10px;
 }
-.artist-list-inner {
-  display: table-row;
-}
-.artist-list-cell {
-  display: table-cell;
-  > span {
-    margin-right: 8px;
-  }
+
+.artist-list-cell > span {
+  margin-right: 8px;
 }
 
 .card {
@@ -279,13 +255,11 @@ body, h1, h2, h3, h4, h5, h6  {
 
 .related-artist-header {
   margin: 30px 0;
-}
-
-@media (max-width: 480px){
-  .related-artist-header {
+  @media (max-width:480px){
     font-size: 18px;
   }
 }
+
 
 .related-artist-container {
   padding-top: 30px;
