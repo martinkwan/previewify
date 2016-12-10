@@ -5,9 +5,15 @@ $faded-grey: #E4EDE4;
 $off-black: #191414;
 $clear-icon-color: #ccc;
 
-// Z-indexs
+// Z-indexes
 $z-landing-page: 1;
 
 // Border
 $border: 4px solid $primary-color;
 $underline: 2px solid white;
+
+
+// Media queries
+
+$tablet-width: 768px;
+$desktop-width: 1024px;

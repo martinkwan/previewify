@@ -17,3 +17,36 @@
     border-radius: $border-radius;
   }
 }
+
+@mixin mobile {
+  @media (max-width: #{$tablet-width - 1px}) {
+    @content;
+  }
+}
+
+@mixin not-mobile {
+  @media (min-width: #{$tablet-width}) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: #{$tablet-width}) and (max-width: #{$desktop-width - 1px}) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: #{$desktop-width}) {
+    @content;
+  }
+}
+
+@mixin sidescroll-setup ($name){
+  .#{$name}-list-inner{
+    display: table-row;
+  }
+  .#{$name}-list-cell{
+    display: table-cell;
+  }
+}
