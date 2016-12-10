@@ -1,0 +1,42 @@
+// Album Art
+
+.album-list-outer {
+  @include scroll;
+  @include not-mobile {
+    margin-top: 38px;
+  }
+  padding-top:10px;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+.album-list-container {
+  @include not-mobile{
+    padding-left: 0;
+    height: 600px;
+  }
+  padding-bottom: 20px;
+}
+
+.album-image {
+  @include size(30%,auto);
+  @include mobile{
+    width: 118px;
+  }
+  margin-right: 4px;
+  margin-bottom: 8px;
+  cursor: pointer;
+}
+
+.popular-album-image {
+  background-color: white;
+}
+
+// CSS for sidescrolling albums when viewed on mobile
+@include mobile {
+  @include sidescroll-setup('album');
+}
+
+.active-album {
+  border: $border;
+}
