@@ -170,7 +170,7 @@ function getRelatedArtists(artistId) {
   $.get('/relatedArtists', { artistId }, (artistResults) => {
     const relatedArtists = JSON.parse(artistResults).artists.map((artist) => {
       // If there is no artistImg, assign a default imgUrl
-      const artistImg = artist.images.length > 1 ? `background-image:url(${artist.images[2].url})`
+      const artistImg = artist.images.length > 0 ? `background-image:url(${artist.images[1].url})`
                                                  : 'background-image:url(https://i.scdn.co/image/907e87639091f8805c48681d9e7f144dedf53741)';
       return { artistId: artist.id, artistName: artist.name, artistImg };
     });
